@@ -201,4 +201,4 @@ SHELL_STATIC_SUBCMD_SET_CREATE(
     SHELL_SUBCMD_SET_END
 );
 
-SHELL_CMD_REGISTER(pwm, &pwm_out_subcmds, "PWM Output Commands", NULL);
+SHELL_CMD_REGISTER(pwm_out, &pwm_out_subcmds, "PWM Output Commands", NULL);
