@@ -38,7 +38,7 @@
 	 * This links the physical hardware (pwm2) to a logical test channel.
 	 */
 	test_bench_pwms {
-		compatible = "gpio-keys"; 
+		compatible = "pwm-leds"; 
 		
 		pwm_out_1: pwm_out_1 {
 			/* <&hardware_node   channel   default_period   flags> */
