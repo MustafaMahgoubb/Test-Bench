@@ -1,0 +1,5 @@
+west:
+  command: /home/mustafa/zephyrproject/.venv/bin/west build . -p always -b blackpill_f401cc
+    -- -DDTC_OVERLAY_FILE=board/led.overlay
+  topdir: /home/mustafa/zephyrproject
+  version: 1.5.0
