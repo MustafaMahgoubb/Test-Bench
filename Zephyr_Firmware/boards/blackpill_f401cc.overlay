@@ -1,0 +1,16 @@
+
+/ {                                           /* Start the root devicetree node */
+
+    aliases {                               /* Start aliases section */
+        dio-out = &dio_output_pin;          /* Create alias name dio-out for PB0 */
+        dio-in = &dio_input_pin;            /* Create alias name dio-in for PB1 */
+    };                                      /* End aliases section */
+
+    dio_output_pin: dio_output_pin {        /* Create a devicetree node for DIO output */
+        gpios = <&gpiob 0 GPIO_ACTIVE_HIGH>;/* Select PB0 as active-high GPIO output */
+    };                                      /* End DIO output node */
+
+    dio_input_pin: dio_input_pin {          /* Create a devicetree node for DIO input */
+        gpios = <&gpiob 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>; /* Select PB1 as input with pull-down */
+    };                                      /* End DIO input node */
+};                                          /* End root devicetree node */
