@@ -1,16 +1,27 @@
+#include <zephyr/dt-bindings/gpio/gpio.h>  /* Include GPIO flag definitions */
 
-/ {                                           /* Start the root devicetree node */
+/ {                                         /* Start the root devicetree node */
 
-    aliases {                               /* Start aliases section */
-        dio-out = &dio_output_pin;          /* Create alias name dio-out for PB0 */
-        dio-in = &dio_input_pin;            /* Create alias name dio-in for PB1 */
-    };                                      /* End aliases section */
+    aliases {                              /* Start the aliases section */
+        dio-out = &dio_out_pin;            /* Create alias dio-out that points to PB0 output node */
+        dio-in = &dio_in_pin;              /* Create alias dio-in that points to PB1 input node */
+    };                                     /* End the aliases section */
 
-    dio_output_pin: dio_output_pin {        /* Create a devicetree node for DIO output */
-        gpios = <&gpiob 0 GPIO_ACTIVE_HIGH>;/* Select PB0 as active-high GPIO output */
-    };                                      /* End DIO output node */
+    dio_outputs {                          /* Create a container node for output GPIO pins */
+        compatible = "gpio-leds";          /* Use Zephyr gpio-leds binding for GPIO output-like nodes */
 
-    dio_input_pin: dio_input_pin {          /* Create a devicetree node for DIO input */
-        gpios = <&gpiob 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>; /* Select PB1 as input with pull-down */
-    };                                      /* End DIO input node */
-};                                          /* End root devicetree node */
+        dio_out_pin: dio_out_pin {         /* Create the DIO output node label */
+            gpios = <&gpiob 0 GPIO_ACTIVE_HIGH>; /* Select PB0 as active-high GPIO output */
+            label = "DIO_OUT_PB0";         /* Add a readable name for the output pin */
+        };                                 /* End the DIO output node */
+    };                                     /* End the output GPIO container */
+
+    dio_inputs {                           /* Create a container node for input GPIO pins */
+        compatible = "gpio-keys";          /* Use Zephyr gpio-keys binding for GPIO input-like nodes */
+
+        dio_in_pin: dio_in_pin {           /* Create the DIO input node label */
+            gpios = <&gpiob 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>; /* Select PB1 as input with pull-down */
+            label = "DIO_IN_PB1";          /* Add a readable name for the input pin */
+        };                                 /* End the DIO input node */
+    };                                     /* End the input GPIO container */
+};                                         /* End the root devicetree node */
