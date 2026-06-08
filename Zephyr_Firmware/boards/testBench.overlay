@@ -1,0 +1,61 @@
+/*
+ * This is the Overlay file used in Test Bench Project
+ *
+ * Authors:   Mustafa Mahgoub (mustafamahgoub.2025@gmail.com)
+ *            Ayman Ali
+*/
+
+/*
+ * ==========================================
+ * HARDWARE CONFIGURATION
+ * ==========================================
+ */
+
+/* 
+ * PWM Configuration
+ * For PWM Out, the Test Bench supports PA0 (Channel 1) and PA1 (Channel 2).
+ * Both of these pins are driven by Hardware Timer 2.
+ */
+&timers2 {
+	status = "okay";
+
+	pwm2: pwm {
+		status = "okay";
+		pinctrl-0 = <&tim2_ch1_pa0 &tim2_ch2_pa1>;
+		pinctrl-names = "default";
+	};
+};
+
+/*
+ * ==========================================
+ * SOFTWARE BINDINGS
+ * ==========================================
+ */
+
+/ {
+	/* 
+	 * Define custom nodes for the Test Bench.
+	 * This links the physical hardware (pwm2) to a logical test channel.
+	 */
+	test_bench_pwms {
+		compatible = "pwm-leds"; 
+		
+		pwm_out_1: pwm_out_1 {
+			/* <&hardware_node   channel   default_period   flags> */
+			pwms = <&pwm2 1 0 PWM_POLARITY_NORMAL>; 
+		};
+		
+		pwm_out_2: pwm_out_2 {
+			pwms = <&pwm2 2 0 PWM_POLARITY_NORMAL>; 
+		};
+	};
+
+	/* 
+	 * Create aliases so the C code can easily find these nodes
+	 * using DT_ALIAS(pwmout1)
+	 */
+	aliases {
+		pwmout1 = &pwm_out_1;
+		pwmout2 = &pwm_out_2;
+	};
+};
