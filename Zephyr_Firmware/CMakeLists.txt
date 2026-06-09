@@ -7,4 +7,5 @@ target_include_directories(app PRIVATE include)
 target_sources(app PRIVATE 
     src/main.c
     src/testbench_pwmOUT.c
+    src/testbench_pwmIN.c
 )

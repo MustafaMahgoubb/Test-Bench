@@ -14,13 +14,13 @@
  * Describtion
  *  this Command generate PWM signal for the Channel_num of dutyCycle% with default frequency 1000 Hz
  * Example
- *  pwm set 1 50       (Sets channel 1 to 50% duty at default freq)
+ *  pwm_out set 1 50       (Sets channel 1 to 50% duty at default freq)
  *
  * pwm_out freq channel_number frequency_Value dutyCycle%
  * Description
  *  this Command generate PWM Signal for the Channel_num of dutyCycle% and frequency of frequency_Value
  * Example
- *  pwm freq 1 1000 25 (Sets channel 1 to 1kHz at 25% duty)
+ *  pwm_out freq 1 1000 25 (Sets channel 1 to 1kHz at 25% duty)
  *
  * pwm_out stop channel_number
  * Description
