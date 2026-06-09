@@ -11,17 +11,41 @@
  * ==========================================
  */
 
-/* 
+/*
+ * ==========================================
  * PWM Configuration
+ * ==========================================
+ */
+
+/*  
  * For PWM Out, the Test Bench supports PA0 (Channel 1) and PA1 (Channel 2).
  * Both of these pins are driven by Hardware Timer 2.
  */
+
 &timers2 {
 	status = "okay";
 
 	pwm2: pwm {
 		status = "okay";
 		pinctrl-0 = <&tim2_ch1_pa0 &tim2_ch2_pa1>;
+		pinctrl-names = "default";
+	};
+};
+
+
+/*  
+ * For PWM In, the Test Bench supports PB4 (Channel 1) and PB5 (Channel 2).
+ * Both of these pins are driven by Hardware Timer 3.
+ */
+
+
+&timers3 {
+	status = "okay";
+	st,prescaler = <83>; // (Divides 84MHz by 84 = 1MHz clock)
+
+	pwm3: pwm {
+		status = "okay";
+		pinctrl-0 = <&tim3_ch1_pb4 &tim3_ch2_pb5>;
 		pinctrl-names = "default";
 	};
 };
@@ -48,6 +72,16 @@
 		pwm_out_2: pwm_out_2 {
 			pwms = <&pwm2 2 0 PWM_POLARITY_NORMAL>; 
 		};
+
+		pwm_in_1: pwm_in_1 {
+            /* Use pwm3, Channel 1 */
+            pwms = <&pwm3 1 0 PWM_POLARITY_NORMAL>; 
+        };
+
+		pwm_in_2: pwm_in_2 {
+            /* Use pwm3, Channel 1 */
+            pwms = <&pwm3 2 0 PWM_POLARITY_NORMAL>; 
+        };
 	};
 
 	/* 
@@ -57,5 +91,7 @@
 	aliases {
 		pwmout1 = &pwm_out_1;
 		pwmout2 = &pwm_out_2;
+		pwmin1 = &pwm_in_1;
+		pwmin2 = &pwm_in_2;
 	};
 };
