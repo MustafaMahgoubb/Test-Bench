@@ -3,6 +3,7 @@
 #include <zephyr/shell/shell.h>         /* Include Zephyr shell APIs */
 
 #include "modules/dio/dio_service.h"    /* Include the DIO service interface */
+#include "modules/adc/adc_service.h"    /* Include the ADC service interface */
 
 
 /**
@@ -45,6 +46,13 @@ int main(void)
         printk("DIO service initialization failed: %d\n", ret); /* Print the DIO initialization error */
         return ret;                                        /* Stop the application with the error code */
     }                                                      /* End DIO service initialization check */
+
+    ret = adc_service_init();                              /* Initialize the ADC service */
+
+    if (ret < 0) {                                         /* Check if ADC service initialization failed */
+        printk("ADC service initialization failed: %d\n", ret); /* Print the ADC initialization error */
+        return ret;                                        /* Stop the application with the error code */
+    }                                                      /* End ADC service initialization check */
 
     printk("Test Bench Firmware Started\n");               /* Print firmware startup message */
 

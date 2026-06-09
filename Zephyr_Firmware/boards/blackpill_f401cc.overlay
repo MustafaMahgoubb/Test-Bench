@@ -25,3 +25,8 @@
         };                                 /* End the DIO input node */
     };                                     /* End the input GPIO container */
 };                                         /* End the root devicetree node */
+
+
+&adc1 {                         /* Select ADC1 peripheral node */
+    status = "okay";            /* Enable ADC1 peripheral */
+};

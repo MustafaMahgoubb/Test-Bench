@@ -1,5 +1,7 @@
 import serial  # Import pyserial to communicate with the STM32 UART shell
 import time    # Import time to add delays while waiting for UART responses
+import re      # Import re to extract values from shell response text
+from robot.api import logger  # Import Robot logger to print messages in Robot console and log
 
 
 class testbench_serial:
@@ -126,3 +128,50 @@ class testbench_serial:
         if expected_text not in response:
             # Raise an error so Robot Framework marks the test as failed
             raise AssertionError(f"Expected '{expected_text}' but got:\n{response}")
+
+
+    def adc_response_should_be_valid(self, response):
+        # Search for ADC response format: ADC_READ RAW <number> MV <number>
+        match = re.search(r"ADC_READ RAW\s+(\d+)\s+MV\s+(\d+)", response)
+
+        # Check if the ADC response format was not found
+        if match is None:
+            # Raise an error so Robot Framework marks the test as failed
+            raise AssertionError(f"Invalid ADC response format:\n{response}")
+
+        # Extract the raw ADC value from the response
+        raw_value = int(match.group(1))
+
+        # Extract the millivolt value from the response
+        mv_value = int(match.group(2))
+
+        # Print ADC values in Robot terminal output under each other
+        logger.console("\nADC Reading:")
+        logger.console(f"  RAW     = {raw_value}")
+        logger.console(f"  Voltage = {mv_value} mV")
+
+        # Save ADC values in Robot log.html
+        logger.info(f"ADC RAW value = {raw_value}")
+
+        # Save ADC voltage in Robot log.html
+        logger.info(f"ADC voltage = {mv_value} mV")
+
+        # Check if the raw ADC value is outside the 12-bit range
+        if raw_value < 0 or raw_value > 4095:
+            # Raise an error if the raw value is invalid
+            raise AssertionError(f"ADC raw value out of range: {raw_value}")
+
+        # Check if the millivolt value is outside the expected voltage range
+        if mv_value < 0 or mv_value > 3300:
+            # Raise an error if the millivolt value is invalid
+            raise AssertionError(f"ADC millivolt value out of range: {mv_value}")
+
+        # Check if the ADC value is too close to 0V
+        if raw_value <= 50:
+            # Raise an error because the ADC input may be connected to GND or stuck LOW
+            raise AssertionError(f"ADC value is too low or stuck near GND: RAW={raw_value}, MV={mv_value}")
+
+        # Check if the ADC value is too close to 3.3V
+        if raw_value >= 4045:
+            # Raise an error because the ADC input may be connected to 3V3 or stuck HIGH
+            raise AssertionError(f"ADC value is too high or stuck near 3V3: RAW={raw_value}, MV={mv_value}")

@@ -7,4 +7,5 @@ project(test_bench)                          # Define the project name
 target_sources(app PRIVATE                   # Add source files to the Zephyr application target
     src/main.c                               # Add the main application source file
     src/modules/dio/dio_service.c            # Add the DIO service source file
+    src/modules/adc/adc_service.c            # Add the ADC service source file
 )
