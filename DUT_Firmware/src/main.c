@@ -1,0 +1,42 @@
+#include <zephyr/kernel.h>              /* Include Zephyr kernel APIs */
+#include <zephyr/sys/printk.h>          /* Include printk for debug messages */
+
+#include "dut_dio.h"                    /* Include DUT DIO module interface */
+#include "dut_spi.h"                    /* Include DUT SPI module interface */
+
+
+/**
+ * @brief Main entry point for DUT firmware.
+ *
+ * This firmware runs on Board 2.
+ * It acts as:
+ * - DIO mirror responder
+ * - SPI slave responder
+ *
+ * @return 0 on success, negative error code on failure.
+ */
+int main(void)
+{
+    int ret = dut_dio_Init();                           /* Initialize DUT DIO mirror */
+
+    if (ret < 0) {                                      /* Check if DUT DIO initialization failed */
+        printk("DUT DIO initialization failed: %d\n", ret); /* Print DIO initialization error */
+        return ret;                                     /* Stop application with error */
+    }
+
+    ret = dut_spi_Init();                               /* Initialize DUT SPI slave */
+
+    if (ret < 0) {                                      /* Check if DUT SPI initialization failed */
+        printk("DUT SPI initialization failed: %d\n", ret); /* Print SPI initialization error */
+        return ret;                                     /* Stop application with error */
+    }
+
+    printk("DUT Firmware Started\n");                   /* Print firmware startup message */
+
+    while (1) {                                         /* Run forever */
+        dut_dio_Process();                              /* Mirror DIO input to output */
+        k_sleep(K_MSEC(1));                             /* Small delay to reduce CPU usage */
+    }
+
+    return 0;                                           /* This line should never be reached */
+}

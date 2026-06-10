@@ -1,177 +1,157 @@
-import serial  # Import pyserial to communicate with the STM32 UART shell
-import time    # Import time to add delays while waiting for UART responses
-import re      # Import re to extract values from shell response text
-from robot.api import logger  # Import Robot logger to print messages in Robot console and log
+import serial
+import time
+import re
+from robot.api import logger
 
 
 class testbench_serial:
-    # Tell Robot Framework to use one library instance for the whole test suite
     ROBOT_LIBRARY_SCOPE = "SUITE"
 
-    # Create the library object and receive arguments from the Robot file
     def __init__(self, port="/dev/ttyUSB0", baudrate=115200, timeout=0.1):
-        # Store the UART port path, for example /dev/ttyUSB0
         self.port = port
-
-        # Convert the baudrate argument to integer because Robot may pass it as text
         self.baudrate = int(baudrate)
-
-        # Convert the timeout argument to float because Robot may pass it as text
         self.timeout = float(timeout)
-
-        # Store the serial connection object, and keep it empty before opening the port
         self.ser = None
 
-    # Open the UART connection to the STM32 board
     def open_connection(self):
-        # Check if the serial port is already open
         if self.ser is not None and self.ser.is_open:
-            # Return directly because the connection is already open
             return
 
-        # Open the UART serial port
         self.ser = serial.Serial(
-            port=self.port,          # Select the UART port path
-            baudrate=self.baudrate,  # Set the UART baud rate
-            timeout=self.timeout,    # Set the UART read timeout
-            exclusive=True           # Prevent another program from using the same port on Linux
+            port=self.port,
+            baudrate=self.baudrate,
+            timeout=self.timeout,
+            exclusive=True
         )
 
-        # Wait for the UART connection to become stable
         time.sleep(1.0)
 
-    # Close the UART connection
     def close_connection(self):
-        # Check if the serial object exists
         if self.ser is not None:
-            # Check if the serial port is open
             if self.ser.is_open:
-                # Close the UART serial port
                 self.ser.close()
 
-            # Clear the serial object after closing the port
             self.ser = None
 
-    # Read data from the STM32 for a specific time
     def read_response(self, read_time=2.0):
-        # Convert read_time to float because Robot may pass it as text
         read_time = float(read_time)
-
-        # Create an empty string to store the full response
         response = ""
-
-        # Save the current time before starting the read loop
         start_time = time.time()
 
-        # Keep reading until the read time expires
         while time.time() - start_time < read_time:
-            # Check if the UART received any bytes
             if self.ser.in_waiting > 0:
-                # Read all available bytes from the UART buffer
                 data = self.ser.read(self.ser.in_waiting)
-
-                # Convert the received bytes to text
                 text = data.decode("utf-8", errors="ignore")
-
-                # Add the received text to the full response
                 response += text
 
-            # Wait a short time before checking again
             time.sleep(0.05)
 
-        # Return the full response text
         return response
 
-    # Send one Zephyr shell command and return the response
     def send_shell_command(self, command, read_time=2.0):
-        # Open the connection automatically if it was not opened before
         if self.ser is None or not self.ser.is_open:
-            # Open the UART connection
             self.open_connection()
 
-        # Clear old received data before sending a new command
         self.ser.reset_input_buffer()
-
-        # Clear old transmitted data before sending a new command
         self.ser.reset_output_buffer()
 
-        # Send Enter to wake up the Zephyr shell
         self.ser.write(b"\r\n")
-
-        # Force the Enter command to be sent immediately
         self.ser.flush()
-
-        # Wait for the Zephyr shell prompt
         time.sleep(0.2)
 
-        # Clear the shell prompt from the receive buffer
         self.ser.reset_input_buffer()
 
-        # Add CRLF to the command because Zephyr shell expects Enter
         command_line = f"{command}\r\n"
-
-        # Send the command to the STM32 board
         self.ser.write(command_line.encode("utf-8"))
-
-        # Force the command to be sent immediately
         self.ser.flush()
 
-        # Read the STM32 response
         response = self.read_response(read_time)
 
-        # Return the response to Robot Framework
         return response
 
-    # Check that the response contains the expected text
     def response_should_contain(self, response, expected_text):
-        # Check if the expected text does not exist in the response
         if expected_text not in response:
-            # Raise an error so Robot Framework marks the test as failed
             raise AssertionError(f"Expected '{expected_text}' but got:\n{response}")
 
-
     def adc_response_should_be_valid(self, response):
-        # Search for ADC response format: ADC_READ RAW <number> MV <number>
         match = re.search(r"ADC_READ RAW\s+(\d+)\s+MV\s+(\d+)", response)
 
-        # Check if the ADC response format was not found
         if match is None:
-            # Raise an error so Robot Framework marks the test as failed
             raise AssertionError(f"Invalid ADC response format:\n{response}")
 
-        # Extract the raw ADC value from the response
         raw_value = int(match.group(1))
-
-        # Extract the millivolt value from the response
         mv_value = int(match.group(2))
 
-        # Print ADC values in Robot terminal output under each other
         logger.console("\nADC Reading:")
         logger.console(f"  RAW     = {raw_value}")
         logger.console(f"  Voltage = {mv_value} mV")
 
-        # Save ADC values in Robot log.html
         logger.info(f"ADC RAW value = {raw_value}")
-
-        # Save ADC voltage in Robot log.html
         logger.info(f"ADC voltage = {mv_value} mV")
 
-        # Check if the raw ADC value is outside the 12-bit range
         if raw_value < 0 or raw_value > 4095:
-            # Raise an error if the raw value is invalid
             raise AssertionError(f"ADC raw value out of range: {raw_value}")
 
-        # Check if the millivolt value is outside the expected voltage range
         if mv_value < 0 or mv_value > 3300:
-            # Raise an error if the millivolt value is invalid
             raise AssertionError(f"ADC millivolt value out of range: {mv_value}")
 
-        # Check if the ADC value is too close to 0V
         if raw_value <= 50:
-            # Raise an error because the ADC input may be connected to GND or stuck LOW
-            raise AssertionError(f"ADC value is too low or stuck near GND: RAW={raw_value}, MV={mv_value}")
+            raise AssertionError(
+                f"ADC value is too low or stuck near GND: RAW={raw_value}, MV={mv_value}"
+            )
 
-        # Check if the ADC value is too close to 3.3V
         if raw_value >= 4045:
-            # Raise an error because the ADC input may be connected to 3V3 or stuck HIGH
-            raise AssertionError(f"ADC value is too high or stuck near 3V3: RAW={raw_value}, MV={mv_value}")
+            raise AssertionError(
+                f"ADC value is too high or stuck near 3V3: RAW={raw_value}, MV={mv_value}"
+            )
+
+    def spi_slave_ping_response_should_pass(self, response):
+        match = re.search(
+            r"SPI_SLAVE_PING PASS TX 0x([0-9A-Fa-f]{2}) RX 0x([0-9A-Fa-f]{2})",
+            response
+        )
+
+        if match is None:
+            raise AssertionError(f"Invalid SPI slave ping response:\n{response}")
+
+        tx_text = match.group(1).upper()
+        rx_text = match.group(2).upper()
+
+        logger.console("\nSPI External DUT Result:")
+        logger.console(f"  TX = 0x{tx_text}")
+        logger.console(f"  RX = 0x{rx_text}")
+
+        logger.info(f"SPI External DUT TX = 0x{tx_text}")
+        logger.info(f"SPI External DUT RX = 0x{rx_text}")
+
+        if tx_text != "A5":
+            raise AssertionError(f"Unexpected SPI TX byte: 0x{tx_text}")
+
+        if rx_text != "5A":
+            raise AssertionError(f"Unexpected SPI RX byte: 0x{rx_text}")
+
+    def dio_test_response_should_pass(self, response):
+        match = re.search(
+            r"DIO_TEST PASS HIGH\s+([01])\s+LOW\s+([01])",
+            response
+        )
+
+        if match is None:
+            raise AssertionError(f"Invalid DIO test response:\n{response}")
+
+        high_value = match.group(1)
+        low_value = match.group(2)
+
+        logger.console("\nDIO External DUT Result:")
+        logger.console(f"  HIGH Read = {high_value}")
+        logger.console(f"  LOW Read  = {low_value}")
+
+        logger.info(f"DIO external HIGH read = {high_value}")
+        logger.info(f"DIO external LOW read = {low_value}")
+
+        if high_value != "1":
+            raise AssertionError(f"Expected HIGH read to be 1, got {high_value}")
+
+        if low_value != "0":
+            raise AssertionError(f"Expected LOW read to be 0, got {low_value}")
+

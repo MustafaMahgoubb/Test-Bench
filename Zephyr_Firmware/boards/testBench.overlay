@@ -1,39 +1,47 @@
 #include <zephyr/dt-bindings/gpio/gpio.h>
 
 / {
-    aliases {
-        dio-out = &dio_out_pin;
-        dio-in = &dio_in_pin;
+aliases {
+dio-out = &dio_out_pin;
+dio-in = &dio_in_pin;
+spi-cs = &spi_cs_pin;
+};
+
+
+dio_outputs {
+    compatible = "gpio-leds";
+
+    dio_out_pin: dio_out_pin {
+        gpios = <&gpiob 8 GPIO_ACTIVE_HIGH>;
+        label = "DIO_OUT_PB8";
     };
 
-    dio_outputs {
-        compatible = "gpio-leds";
-
-        dio_out_pin: dio_out_pin {
-            gpios = <&gpiob 8 GPIO_ACTIVE_HIGH>;
-            label = "DIO_OUT_PB8";
-        };
+    spi_cs_pin: spi_cs_pin {
+        gpios = <&gpioa 4 GPIO_ACTIVE_LOW>;
+        label = "SPI_CS_PA4";
     };
+};
 
-    dio_inputs {
-        compatible = "gpio-keys";
+dio_inputs {
+    compatible = "gpio-keys";
 
-        dio_in_pin: dio_in_pin {
-            gpios = <&gpiob 9 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
-            label = "DIO_IN_PB9";
-        };
+    dio_in_pin: dio_in_pin {
+        gpios = <&gpiob 9 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
+        label = "DIO_IN_PB9";
     };
+};
+
+
 };
 
 &adc1 {
-    status = "okay";
-    pinctrl-0 = <&adc1_in8_pb0>;
-    pinctrl-names = "default";
+status = "okay";
+pinctrl-0 = <&adc1_in8_pb0>;
+pinctrl-names = "default";
 };
 
 &spi1 {
-    status = "okay";
-    pinctrl-0 = <&spi1_sck_pa5 &spi1_miso_pa6 &spi1_mosi_pa7>;
-    pinctrl-names = "default";
+status = "okay";
+pinctrl-0 = <&spi1_sck_pa5 &spi1_miso_pa6 &spi1_mosi_pa7>;
+pinctrl-names = "default";
 };
-
