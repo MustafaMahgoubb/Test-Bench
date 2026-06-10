@@ -2073,25 +2073,25 @@ storage = function () {
 window.output = {};
 </script>
 <script type="text/javascript">
-window.output["suite"] = [1,2,3,0,[],[1,0,14393],[],[[4,0,0,[],[1,1030,2206],[[0,5,6,0,0,7,8,0,[1,1030,2205],[[3236,2,9]]],[0,10,6,0,0,11,0,0,[1,3236,0],[]]]],[12,0,0,[],[1,3237,2206],[[0,5,6,0,0,13,8,0,[1,3237,2205],[[5442,2,14]]],[0,10,6,0,0,15,0,0,[1,5442,0],[]]]],[16,0,0,[],[1,5442,4420],[[0,5,6,0,0,17,18,0,[1,5443,2209],[[7652,2,19]]],[0,10,6,0,0,20,0,0,[1,7652,0],[]],[0,5,6,0,0,21,22,0,[1,7653,2210],[[9862,2,23]]],[0,10,6,0,0,24,0,0,[1,9862,0],[]]]],[25,0,0,[],[1,9863,4425],[[0,5,6,0,0,26,18,0,[1,9863,2212],[[12076,2,27]]],[0,10,6,0,0,28,0,0,[1,12076,0],[]],[0,5,6,0,0,21,22,0,[1,12076,2212],[[14288,2,29]]],[0,10,6,0,0,30,0,0,[1,14288,0],[]]]]],[[1,31,6,0,0,0,0,0,[1,29,1001],[]],[2,32,6,0,0,0,0,0,[1,14289,104],[]]],[4,4,0,0]];
+window.output["suite"] = [1,2,3,0,[],[1,0,12193],[],[[4,0,0,[],[1,1028,2211],[[0,5,6,0,0,7,8,0,[1,1029,2210],[[3239,2,9]]],[0,10,6,0,0,11,0,0,[1,3239,0],[]]]],[12,0,0,[],[1,3239,2212],[[0,5,6,0,0,13,8,0,[1,3239,2211],[[5450,2,14]]],[0,10,6,0,0,15,0,0,[1,5451,0],[]]]],[16,0,0,[],[1,5451,2210],[[0,5,6,0,0,17,8,0,[1,5451,2210],[[7661,2,18]]],[0,10,6,0,0,19,0,0,[1,7661,0],[]]]],[20,0,0,[],[1,7662,2212],[[0,5,6,0,0,21,8,0,[1,7662,2211],[[9873,2,22]]],[0,10,6,0,0,23,0,0,[1,9873,0],[]]]],[24,0,0,[],[1,9874,2211],[[0,5,6,0,0,25,8,0,[1,9874,2210],[[12084,2,26]]],[0,10,6,0,0,27,0,0,[1,12085,0],[]]]]],[[1,28,6,0,0,0,0,0,[1,27,1001],[]],[2,29,6,0,0,0,0,0,[1,12085,107],[]]],[5,5,0,0]];
 </script>
 <script type="text/javascript">
 window.output["strings"] = [];
 </script>
 <script type="text/javascript">
-window.output["strings"] = window.output["strings"].concat(["*","*01 Dio","*/home/ayman/zephyrproject/iti_applications/Test-Bench/Robot_Framework/tests/01_dio.robot","*01_dio.robot","*Communication Ping Test","*Send Shell Command","*testbench_serial","*tb_ping","*${response}","*${response} = tb_ping\nPONG\n[1;32muart:~$ [m","*Response Should Contain","*${response}    PONG","*DIO Loopback Test","*tb_dio_test","*${response} = tb_dio_test\nDIO_TEST PASS HIGH 1 LOW 0\n[1;32muart:~$ [m","*${response}    DIO_TEST PASS HIGH 1 LOW 0","*DIO Write High And Read Test","*tb_dio_write 1","*${write_response}","*${write_response} = tb_dio_write 1\nDIO_WRITE OK VALUE 1\n[1;32muart:~$ [m","*${write_response}    DIO_WRITE OK VALUE 1","*tb_dio_read","*${read_response}","*${read_response} = tb_dio_read\nDIO_READ VALUE 1\n[1;32muart:~$ [m","*${read_response}    DIO_READ VALUE 1","*DIO Write Low And Read Test","*tb_dio_write 0","*${write_response} = tb_dio_write 0\nDIO_WRITE OK VALUE 0\n[1;32muart:~$ [m","*${write_response}    DIO_WRITE OK VALUE 0","*${read_response} = tb_dio_read\nDIO_READ VALUE 0\n[1;32muart:~$ [m","*${read_response}    DIO_READ VALUE 0","*Open Connection","*Close Connection"]);
+window.output["strings"] = window.output["strings"].concat(["*","*03 Spi","*/home/ayman/zephyrproject/iti_applications/Test-Bench/Robot_Framework/tests/03_spi.robot","*03_spi.robot","*Communication Ping Test","*Send Shell Command","*testbench_serial","*tb_ping","*${response}","*${response} = tb_ping\nPONG\n[1;32muart:~$ [m","*Response Should Contain","*${response}    PONG","*SPI Loopback Test","*tb_spi_test","*${response} = tb_spi_test\nSPI_TEST PASS TX 0xA5 RX 0xA5\n[1;32muart:~$ [m","*${response}    SPI_TEST PASS TX 0xA5 RX 0xA5","*SPI Transfer 0x55 Test","*tb_spi_transfer 0x55","*${response} = tb_spi_transfer 0x55\nSPI_TRANSFER TX 0x55 RX 0x55\n[1;32muart:~$ [m","*${response}    SPI_TRANSFER TX 0x55 RX 0x55","*SPI Transfer 0xA5 Test","*tb_spi_transfer 0xA5","*${response} = tb_spi_transfer 0xA5\nSPI_TRANSFER TX 0xA5 RX 0xA5\n[1;32muart:~$ [m","*${response}    SPI_TRANSFER TX 0xA5 RX 0xA5","*SPI Transfer 0xFF Test","*tb_spi_transfer 0xFF","*${response} = tb_spi_transfer 0xFF\nSPI_TRANSFER TX 0xFF RX 0xFF\n[1;32muart:~$ [m","*${response}    SPI_TRANSFER TX 0xFF RX 0xFF","*Open Connection","*Close Connection"]);
 </script>
 <script type="text/javascript">
-window.output["stats"] = [[{"elapsed":"00:00:13","fail":0,"label":"All Tests","pass":4,"skip":0}],[],[{"elapsed":"00:00:14","fail":0,"id":"s1","label":"01 Dio","name":"01 Dio","pass":4,"skip":0}]];
+window.output["stats"] = [[{"elapsed":"00:00:11","fail":0,"label":"All Tests","pass":5,"skip":0}],[],[{"elapsed":"00:00:12","fail":0,"id":"s1","label":"03 Spi","name":"03 Spi","pass":5,"skip":0}]];
 </script>
 <script type="text/javascript">
 window.output["errors"] = [];
 </script>
 <script type="text/javascript">
-window.output["baseMillis"] = 1781075362482;
+window.output["baseMillis"] = 1781076121331;
 </script>
 <script type="text/javascript">
-window.output["generated"] = 14397;
+window.output["generated"] = 12195;
 </script>
 <script type="text/javascript">
 window.output["expand_keywords"] = null;

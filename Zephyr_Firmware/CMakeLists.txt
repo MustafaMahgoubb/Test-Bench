@@ -10,4 +10,5 @@ target_sources(app PRIVATE
     src/main.c
     src/testbench_dio.c
     src/testbench_adc.c
+    src/testbench_spi.c
 )

@@ -4,6 +4,7 @@
 
 #include "testbench_dio.h"              /* Include DIO module interface */
 #include "testbench_adc.h"              /* Include ADC module interface */
+#include "testbench_spi.h"              /* Include SPI module interface */
 
 
 /**
@@ -53,6 +54,13 @@ int main(void)
     if (ret < 0) {                      /* Check if ADC initialization failed */
         printk("ADC initialization failed: %d\n", ret); /* Print ADC initialization error */
         return ret;                     /* Stop application with error code */
+    }
+
+    ret = testBench_spi_Init();
+
+    if (ret < 0) {
+        printk("SPI initialization failed: %d\n", ret);
+        return ret;
     }
 
     printk("Test Bench Firmware Started\n"); /* Print firmware startup message */
