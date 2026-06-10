@@ -1,0 +1,62 @@
+cmake:
+  application:
+    configuration-dir: '/home/ayman/zephyrproject/iti_applications/Test-Bench/DUT_Firmware'
+    source-dir: '/home/ayman/zephyrproject/iti_applications/Test-Bench/DUT_Firmware'
+  board:
+    name: 'blackpill_f401cc'
+    path:
+     - '/home/ayman/zephyrproject/zephyr/boards/weact/blackpill_f401cc'
+    qualifiers: 'stm32f401xc'
+    revision: ''
+  devicetree:
+    bindings-dirs:
+     - '/home/ayman/zephyrproject/zephyr/dts/bindings'
+    files:
+     - '/home/ayman/zephyrproject/zephyr/boards/weact/blackpill_f401cc/blackpill_f401cc.dts'
+     - 'boards/dutBoard.overlay'
+    include-dirs:
+     - '/home/ayman/zephyrproject/modules/hal/ambiq/dts'
+     - '/home/ayman/zephyrproject/modules/hal/atmel/include'
+     - '/home/ayman/zephyrproject/modules/hal/bouffalolab/include'
+     - '/home/ayman/zephyrproject/modules/hal/bouffalolab/include/zephyr'
+     - '/home/ayman/zephyrproject/modules/hal/gigadevice/include'
+     - '/home/ayman/zephyrproject/modules/hal/microchip/include'
+     - '/home/ayman/zephyrproject/modules/hal/microchip/dts'
+     - '/home/ayman/zephyrproject/modules/hal/nuvoton/dts'
+     - '/home/ayman/zephyrproject/modules/hal/nxp/dts'
+     - '/home/ayman/zephyrproject/modules/hal/stm32/dts'
+     - '/home/ayman/zephyrproject/modules/hal/ti/dts'
+     - '/home/ayman/zephyrproject/iti_applications/Test-Bench/DUT_Firmware/include'
+     - '/home/ayman/zephyrproject/zephyr/include'
+     - '/home/ayman/zephyrproject/zephyr/include/zephyr'
+     - '/home/ayman/zephyrproject/zephyr/dts/common'
+     - '/home/ayman/zephyrproject/zephyr/dts/vendor'
+     - '/home/ayman/zephyrproject/zephyr/dts/rx'
+     - '/home/ayman/zephyrproject/zephyr/dts/x86'
+     - '/home/ayman/zephyrproject/zephyr/dts/xtensa'
+     - '/home/ayman/zephyrproject/zephyr/dts/sparc'
+     - '/home/ayman/zephyrproject/zephyr/dts/riscv'
+     - '/home/ayman/zephyrproject/zephyr/dts/posix'
+     - '/home/ayman/zephyrproject/zephyr/dts/arm64'
+     - '/home/ayman/zephyrproject/zephyr/dts/arm'
+     - '/home/ayman/zephyrproject/zephyr/dts/arc'
+     - '/home/ayman/zephyrproject/zephyr/dts'
+    user-files:
+     - 'boards/dutBoard.overlay'
+  kconfig:
+    files:
+     - '/home/ayman/zephyrproject/zephyr/boards/weact/blackpill_f401cc/blackpill_f401cc_defconfig'
+     - '/home/ayman/zephyrproject/iti_applications/Test-Bench/DUT_Firmware/prj.conf'
+    user-files:
+     - '/home/ayman/zephyrproject/iti_applications/Test-Bench/DUT_Firmware/prj.conf'
+  toolchain:
+    name: 'zephyr'
+    path: '/home/ayman/zephyr-sdk-0.17.4'
+  zephyr:
+    version: '4.3.99'
+    zephyr-base: '/home/ayman/zephyrproject/zephyr'
+version: '0.1.0'
+west:
+  command: '/home/ayman/zephyrproject/.venv/bin/west build -b blackpill_f401cc -p always . -- -DDTC_OVERLAY_FILE=boards/dutBoard.overlay'
+  topdir: '/home/ayman/zephyrproject'
+  version: '1.5.0'

@@ -1,158 +1,418 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.4.2 (Python 3.10.12 on linux)" generated="2026-06-10T05:15:50.826860" rpa="false" schemaversion="5">
-<suite id="s1" name="Uart Test" source="/home/mustafa/Embedded_ITI_9M/projects/Test-Bench/Robot_Framework/uart_test.robot">
-<kw name="Clear UART Buffers" type="SETUP">
-<kw name="Uart Clear" owner="TestBenchLibrary">
-<arg>${TEST_CHANNEL}</arg>
-<doc>This Python function becomes a Robot Keyword!</doc>
-<status status="PASS" start="2026-06-10T05:15:51.968771" elapsed="1.102990"/>
+<robot generator="Robot 7.4.2 (Python 3.12.3 on linux)" generated="2026-06-10T13:40:42.755558" rpa="false" schemaversion="5">
+<suite id="s1" name="Tests" source="/home/ayman/zephyrproject/iti_applications/Test-Bench/Robot_Framework/tests">
+<suite id="s1-s1" name="01 Dio" source="/home/ayman/zephyrproject/iti_applications/Test-Bench/Robot_Framework/tests/01_dio.robot">
+<kw name="Open Connection" owner="testbench_serial" type="SETUP">
+<status status="PASS" start="2026-06-10T13:40:42.783727" elapsed="1.001498"/>
 </kw>
-<status status="PASS" start="2026-06-10T05:15:51.967204" elapsed="1.104696"/>
-</kw>
-<test id="s1-t1" name="Test UART Send And Read (Loopback)" line="15">
-<kw name="Uart Clear" owner="TestBenchLibrary">
-<arg>${TEST_CHANNEL}</arg>
-<doc>This Python function becomes a Robot Keyword!</doc>
-<status status="PASS" start="2026-06-10T05:15:53.072649" elapsed="1.102645"/>
-</kw>
-<kw name="Set Variable" owner="BuiltIn">
-<msg time="2026-06-10T05:15:54.177755" level="INFO">${payload} = Robot_Test_Message</msg>
-<var>${payload}</var>
-<arg>Robot_Test_Message</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" start="2026-06-10T05:15:54.176014" elapsed="0.001870"/>
-</kw>
-<kw name="Uart Send" owner="TestBenchLibrary">
-<arg>${TEST_CHANNEL}</arg>
-<arg>${payload}</arg>
-<doc>This Python function becomes a Robot Keyword!</doc>
-<status status="PASS" start="2026-06-10T05:15:54.178466" elapsed="0.101184"/>
-</kw>
-<kw name="Sleep" owner="BuiltIn">
-<msg time="2026-06-10T05:15:54.481949" level="INFO">Slept 200 milliseconds.</msg>
-<arg>0.2s</arg>
-<doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2026-06-10T05:15:54.280394" elapsed="0.201925"/>
-</kw>
-<kw name="Uart Read" owner="TestBenchLibrary">
-<msg time="2026-06-10T05:15:54.585141" level="INFO">${response} = Robot_Test_Message</msg>
+<test id="s1-s1-t1" name="Communication Ping Test" line="8">
+<kw name="Send Shell Command" owner="testbench_serial">
+<msg time="2026-06-10T13:40:46.004614" level="INFO">${response} = tb_ping
+PONG
+[1;32mblackpill:~$ [m</msg>
 <var>${response}</var>
-<arg>${TEST_CHANNEL}</arg>
-<doc>This Python function becomes a Robot Keyword!</doc>
-<status status="PASS" start="2026-06-10T05:15:54.482984" elapsed="0.102310"/>
+<arg>tb_ping</arg>
+<status status="PASS" start="2026-06-10T13:40:43.785712" elapsed="2.218981"/>
 </kw>
-<kw name="Should Be Equal" owner="BuiltIn">
+<kw name="Response Should Contain" owner="testbench_serial">
 <arg>${response}</arg>
-<arg>${payload}</arg>
-<arg>msg=Failed! Did you connect the loopback wire?</arg>
-<doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" start="2026-06-10T05:15:54.585936" elapsed="0.001734"/>
+<arg>PONG</arg>
+<status status="PASS" start="2026-06-10T13:40:46.004952" elapsed="0.000182"/>
 </kw>
-<doc>Sends a payload and verifies the identical payload is received via hardware loopback.</doc>
-<status status="PASS" start="2026-06-10T05:15:53.071996" elapsed="1.516318"/>
+<status status="PASS" start="2026-06-10T13:40:43.785353" elapsed="2.219959"/>
 </test>
-<test id="s1-t2" name="Test UART Buffer Clearing" line="31">
-<kw name="Uart Send" owner="TestBenchLibrary">
-<arg>${TEST_CHANNEL}</arg>
-<arg>GarbageData123</arg>
-<doc>This Python function becomes a Robot Keyword!</doc>
-<status status="PASS" start="2026-06-10T05:15:54.590789" elapsed="1.103090"/>
-</kw>
-<kw name="Sleep" owner="BuiltIn">
-<msg time="2026-06-10T05:15:55.896176" level="INFO">Slept 200 milliseconds.</msg>
-<arg>0.2s</arg>
-<doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2026-06-10T05:15:55.694626" elapsed="0.201871"/>
-</kw>
-<kw name="Uart Clear" owner="TestBenchLibrary">
-<arg>${TEST_CHANNEL}</arg>
-<doc>This Python function becomes a Robot Keyword!</doc>
-<status status="PASS" start="2026-06-10T05:15:55.897185" elapsed="0.101225"/>
-</kw>
-<kw name="Uart Read" owner="TestBenchLibrary">
-<msg time="2026-06-10T05:15:56.100635" level="INFO">${response} = </msg>
+<test id="s1-s1-t2" name="DIO Loopback Test" line="12">
+<kw name="Send Shell Command" owner="testbench_serial">
+<msg time="2026-06-10T13:40:48.220166" level="INFO">${response} = tb_dio_test
+DIO_TEST PASS HIGH 1 LOW 0
+[1;32mblackpill:~$ [m</msg>
 <var>${response}</var>
-<arg>${TEST_CHANNEL}</arg>
-<doc>This Python function becomes a Robot Keyword!</doc>
-<status status="PASS" start="2026-06-10T05:15:55.999177" elapsed="0.101611"/>
+<arg>tb_dio_test</arg>
+<status status="PASS" start="2026-06-10T13:40:46.005799" elapsed="2.214405"/>
 </kw>
-<kw name="Should Not Contain" owner="BuiltIn">
+<kw name="Response Should Contain" owner="testbench_serial">
 <arg>${response}</arg>
-<arg>GarbageData123</arg>
-<arg>msg=Clear command failed, old data was still in the buffer!</arg>
-<doc>Fails if ``container`` contains ``item`` one or more times.</doc>
-<status status="PASS" start="2026-06-10T05:15:56.101434" elapsed="0.001908"/>
+<arg>DIO_TEST PASS HIGH 1 LOW 0</arg>
+<status status="PASS" start="2026-06-10T13:40:48.220370" elapsed="0.000142"/>
 </kw>
-<doc>Ensures the clear command successfully drops old unread data.</doc>
-<status status="PASS" start="2026-06-10T05:15:54.589272" elapsed="1.514666"/>
+<status status="PASS" start="2026-06-10T13:40:46.005518" elapsed="2.215179"/>
 </test>
-<test id="s1-t3" name="Test Dynamic Baudrate Switching" line="42">
-<kw name="Uart Set Baudrate" owner="TestBenchLibrary">
-<arg>${TEST_CHANNEL}</arg>
-<arg>9600</arg>
-<doc>This Python function becomes a Robot Keyword!</doc>
-<status status="PASS" start="2026-06-10T05:15:56.106218" elapsed="1.103185"/>
+<test id="s1-s1-t3" name="DIO Write High And Read Test" line="16">
+<kw name="Send Shell Command" owner="testbench_serial">
+<msg time="2026-06-10T13:40:50.438452" level="INFO">${write_response} = tb_dio_write 1
+DIO_WRITE OK VALUE 1
+[1;32mblackpill:~$ [m</msg>
+<var>${write_response}</var>
+<arg>tb_dio_write 1</arg>
+<status status="PASS" start="2026-06-10T13:40:48.221266" elapsed="2.217221"/>
 </kw>
-<kw name="Sleep" owner="BuiltIn">
-<msg time="2026-06-10T05:15:57.411671" level="INFO">Slept 200 milliseconds.</msg>
-<arg>0.2s</arg>
-<doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2026-06-10T05:15:57.210209" elapsed="0.201790"/>
+<kw name="Response Should Contain" owner="testbench_serial">
+<arg>${write_response}</arg>
+<arg>DIO_WRITE OK VALUE 1</arg>
+<status status="PASS" start="2026-06-10T13:40:50.438702" elapsed="0.000142"/>
 </kw>
-<kw name="Uart Clear" owner="TestBenchLibrary">
-<arg>${TEST_CHANNEL}</arg>
-<doc>This Python function becomes a Robot Keyword!</doc>
-<status status="PASS" start="2026-06-10T05:15:57.412671" elapsed="0.101422"/>
+<kw name="Send Shell Command" owner="testbench_serial">
+<msg time="2026-06-10T13:40:52.656189" level="INFO">${read_response} = tb_dio_read
+DIO_READ VALUE 1
+[1;32mblackpill:~$ [m</msg>
+<var>${read_response}</var>
+<arg>tb_dio_read</arg>
+<status status="PASS" start="2026-06-10T13:40:50.438984" elapsed="2.217239"/>
 </kw>
-<kw name="Uart Send" owner="TestBenchLibrary">
-<arg>${TEST_CHANNEL}</arg>
-<arg>SlowMessage</arg>
-<doc>This Python function becomes a Robot Keyword!</doc>
-<status status="PASS" start="2026-06-10T05:15:57.514793" elapsed="0.101459"/>
+<kw name="Response Should Contain" owner="testbench_serial">
+<arg>${read_response}</arg>
+<arg>DIO_READ VALUE 1</arg>
+<status status="PASS" start="2026-06-10T13:40:52.656420" elapsed="0.000127"/>
 </kw>
-<kw name="Sleep" owner="BuiltIn">
-<msg time="2026-06-10T05:15:58.118341" level="INFO">Slept 500 milliseconds.</msg>
-<arg>0.5s</arg>
-<doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2026-06-10T05:15:57.616944" elapsed="0.501753"/>
+<status status="PASS" start="2026-06-10T13:40:48.220986" elapsed="4.435713"/>
+</test>
+<test id="s1-s1-t4" name="DIO Write Low And Read Test" line="22">
+<kw name="Send Shell Command" owner="testbench_serial">
+<msg time="2026-06-10T13:40:54.869096" level="INFO">${write_response} = tb_dio_write 0
+DIO_WRITE OK VALUE 0
+[1;32mblackpill:~$ [m</msg>
+<var>${write_response}</var>
+<arg>tb_dio_write 0</arg>
+<status status="PASS" start="2026-06-10T13:40:52.657246" elapsed="2.211884"/>
 </kw>
-<kw name="Uart Read" owner="TestBenchLibrary">
-<msg time="2026-06-10T05:15:58.220779" level="INFO">${response} = SlowMessage</msg>
+<kw name="Response Should Contain" owner="testbench_serial">
+<arg>${write_response}</arg>
+<arg>DIO_WRITE OK VALUE 0</arg>
+<status status="PASS" start="2026-06-10T13:40:54.869326" elapsed="0.000129"/>
+</kw>
+<kw name="Send Shell Command" owner="testbench_serial">
+<msg time="2026-06-10T13:40:57.087321" level="INFO">${read_response} = tb_dio_read
+DIO_READ VALUE 0
+[1;32mblackpill:~$ [m</msg>
+<var>${read_response}</var>
+<arg>tb_dio_read</arg>
+<status status="PASS" start="2026-06-10T13:40:54.869595" elapsed="2.217760"/>
+</kw>
+<kw name="Response Should Contain" owner="testbench_serial">
+<arg>${read_response}</arg>
+<arg>DIO_READ VALUE 0</arg>
+<status status="PASS" start="2026-06-10T13:40:57.087613" elapsed="0.000199"/>
+</kw>
+<status status="PASS" start="2026-06-10T13:40:52.656945" elapsed="4.431016"/>
+</test>
+<kw name="Close Connection" owner="testbench_serial" type="TEARDOWN">
+<status status="PASS" start="2026-06-10T13:40:57.088417" elapsed="0.106979"/>
+</kw>
+<status status="PASS" start="2026-06-10T13:40:42.779627" elapsed="14.415816"/>
+</suite>
+<suite id="s1-s2" name="02 Adc" source="/home/ayman/zephyrproject/iti_applications/Test-Bench/Robot_Framework/tests/02_adc.robot">
+<kw name="Open Connection" owner="testbench_serial" type="SETUP">
+<status status="PASS" start="2026-06-10T13:40:57.197335" elapsed="1.001190"/>
+</kw>
+<test id="s1-s2-t1" name="Communication Ping Test" line="8">
+<kw name="Send Shell Command" owner="testbench_serial">
+<msg time="2026-06-10T13:41:00.417198" level="INFO">${response} = tb_ping
+PONG
+[1;32mblackpill:~$ [m</msg>
 <var>${response}</var>
-<arg>${TEST_CHANNEL}</arg>
-<doc>This Python function becomes a Robot Keyword!</doc>
-<status status="PASS" start="2026-06-10T05:15:58.119393" elapsed="0.101543"/>
+<arg>tb_ping</arg>
+<status status="PASS" start="2026-06-10T13:40:58.198974" elapsed="2.218257"/>
 </kw>
-<kw name="Should Contain" owner="BuiltIn">
+<kw name="Response Should Contain" owner="testbench_serial">
 <arg>${response}</arg>
-<arg>SlowMessage</arg>
-<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
-<status status="PASS" start="2026-06-10T05:15:58.221755" elapsed="0.001495"/>
+<arg>PONG</arg>
+<status status="PASS" start="2026-06-10T13:41:00.417424" elapsed="0.000126"/>
 </kw>
-<kw name="Uart Set Baudrate" owner="TestBenchLibrary">
-<arg>${TEST_CHANNEL}</arg>
-<arg>${BAUDRATE}</arg>
-<doc>This Python function becomes a Robot Keyword!</doc>
-<status status="PASS" start="2026-06-10T05:15:58.223885" elapsed="0.101445"/>
-</kw>
-<doc>Tests changing the baudrate on the fly.</doc>
-<status status="PASS" start="2026-06-10T05:15:56.104849" elapsed="2.221365"/>
+<status status="PASS" start="2026-06-10T13:40:58.198597" elapsed="2.219134"/>
 </test>
-<kw name="Close Connection" owner="TestBenchLibrary" type="TEARDOWN">
-<status status="PASS" start="2026-06-10T05:15:58.328376" elapsed="0.106808"/>
+<test id="s1-s2-t2" name="ADC Potentiometer Read Test" line="12">
+<kw name="Send Shell Command" owner="testbench_serial">
+<msg time="2026-06-10T13:41:02.635560" level="INFO">${response} = tb_adc_read
+ADC_READ RAW 324 MV 261
+[1;32mblackpill:~$ [m</msg>
+<var>${response}</var>
+<arg>tb_adc_read</arg>
+<status status="PASS" start="2026-06-10T13:41:00.418261" elapsed="2.217333"/>
 </kw>
-<doc>Hardware-in-the-Loop Test Suite for UART Driver.
-REQUIREMENT: You MUST connect a jumper wire between PA11 (TX) and PA12 (RX) for Channel 2 Loopback testing!</doc>
-<status status="PASS" start="2026-06-10T05:15:50.827592" elapsed="7.607787"/>
+<kw name="Response Should Contain" owner="testbench_serial">
+<arg>${response}</arg>
+<arg>ADC_READ RAW</arg>
+<status status="PASS" start="2026-06-10T13:41:02.635837" elapsed="0.000128"/>
+</kw>
+<kw name="Adc Response Should Be Valid" owner="testbench_serial">
+<msg time="2026-06-10T13:41:02.636462" level="INFO">ADC RAW value = 324</msg>
+<msg time="2026-06-10T13:41:02.636508" level="INFO">ADC voltage = 261 mV</msg>
+<arg>${response}</arg>
+<status status="PASS" start="2026-06-10T13:41:02.636102" elapsed="0.000442"/>
+</kw>
+<status status="PASS" start="2026-06-10T13:41:00.417978" elapsed="2.218728"/>
+</test>
+<kw name="Close Connection" owner="testbench_serial" type="TEARDOWN">
+<status status="PASS" start="2026-06-10T13:41:02.637022" elapsed="0.102611"/>
+</kw>
+<status status="PASS" start="2026-06-10T13:40:57.195979" elapsed="5.543737"/>
+</suite>
+<suite id="s1-s3" name="03 Spi" source="/home/ayman/zephyrproject/iti_applications/Test-Bench/Robot_Framework/tests/03_spi.robot">
+<kw name="Open Connection" owner="testbench_serial" type="SETUP">
+<status status="PASS" start="2026-06-10T13:41:02.741572" elapsed="1.001710"/>
+</kw>
+<test id="s1-s3-t1" name="Communication Ping Test" line="8">
+<kw name="Send Shell Command" owner="testbench_serial">
+<msg time="2026-06-10T13:41:05.961905" level="INFO">${response} = tb_ping
+PONG
+[1;32mblackpill:~$ [m</msg>
+<var>${response}</var>
+<arg>tb_ping</arg>
+<status status="PASS" start="2026-06-10T13:41:03.743691" elapsed="2.218257"/>
+</kw>
+<kw name="Response Should Contain" owner="testbench_serial">
+<arg>${response}</arg>
+<arg>PONG</arg>
+<status status="PASS" start="2026-06-10T13:41:05.962136" elapsed="0.000126"/>
+</kw>
+<status status="PASS" start="2026-06-10T13:41:03.743350" elapsed="2.219052"/>
+</test>
+<test id="s1-s3-t2" name="SPI Loopback Test" line="12">
+<kw name="Send Shell Command" owner="testbench_serial">
+<msg time="2026-06-10T13:41:08.179800" level="INFO">${response} = tb_spi_test
+[1;31mSPI_TEST FAIL TX 0xA5 RX 0x00
+[m[1;32mblackpill:~$ [m</msg>
+<var>${response}</var>
+<arg>tb_spi_test</arg>
+<status status="PASS" start="2026-06-10T13:41:05.962975" elapsed="2.216861"/>
+</kw>
+<kw name="SPI Test Response Should Be Valid">
+<msg time="2026-06-10T13:41:08.180749" level="FAIL">No keyword with name 'SPI Test Response Should Be Valid' found.</msg>
+<arg>${response}</arg>
+<status status="FAIL" start="2026-06-10T13:41:08.180689" elapsed="0.000105">No keyword with name 'SPI Test Response Should Be Valid' found.</status>
+</kw>
+<status status="FAIL" start="2026-06-10T13:41:05.962672" elapsed="2.218450">No keyword with name 'SPI Test Response Should Be Valid' found.</status>
+</test>
+<test id="s1-s3-t3" name="SPI Transfer 0x55 Test" line="16">
+<kw name="Send Shell Command" owner="testbench_serial">
+<msg time="2026-06-10T13:41:10.400391" level="INFO">${response} = tb_spi_transfer 0x55
+SPI_TRANSFER TX 0x55 RX 0x00
+[1;32mblackpill:~$ [m</msg>
+<var>${response}</var>
+<arg>tb_spi_transfer 0x55</arg>
+<status status="PASS" start="2026-06-10T13:41:08.181682" elapsed="2.218743"/>
+</kw>
+<kw name="SPI Transfer Response Should Match">
+<msg time="2026-06-10T13:41:10.401185" level="FAIL">No keyword with name 'SPI Transfer Response Should Match' found.</msg>
+<arg>${response}</arg>
+<arg>0x55</arg>
+<status status="FAIL" start="2026-06-10T13:41:10.401125" elapsed="0.000111">No keyword with name 'SPI Transfer Response Should Match' found.</status>
+</kw>
+<status status="FAIL" start="2026-06-10T13:41:08.181424" elapsed="2.220028">No keyword with name 'SPI Transfer Response Should Match' found.</status>
+</test>
+<test id="s1-s3-t4" name="SPI Transfer 0xA5 Test" line="20">
+<kw name="Send Shell Command" owner="testbench_serial">
+<msg time="2026-06-10T13:41:12.620547" level="INFO">${response} = tb_spi_transfer 0xA5
+SPI_TRANSFER TX 0xA5 RX 0x00
+[1;32mblackpill:~$ [m</msg>
+<var>${response}</var>
+<arg>tb_spi_transfer 0xA5</arg>
+<status status="PASS" start="2026-06-10T13:41:10.401906" elapsed="2.218675"/>
+</kw>
+<kw name="SPI Transfer Response Should Match">
+<msg time="2026-06-10T13:41:12.621462" level="FAIL">No keyword with name 'SPI Transfer Response Should Match' found.</msg>
+<arg>${response}</arg>
+<arg>0xA5</arg>
+<status status="FAIL" start="2026-06-10T13:41:12.621416" elapsed="0.000082">No keyword with name 'SPI Transfer Response Should Match' found.</status>
+</kw>
+<status status="FAIL" start="2026-06-10T13:41:10.401660" elapsed="2.220028">No keyword with name 'SPI Transfer Response Should Match' found.</status>
+</test>
+<test id="s1-s3-t5" name="SPI Transfer 0xFF Test" line="24">
+<kw name="Send Shell Command" owner="testbench_serial">
+<msg time="2026-06-10T13:41:14.837344" level="INFO">${response} = tb_spi_transfer 0xFF
+SPI_TRANSFER TX 0xFF RX 0x00
+[1;32mblackpill:~$ [m</msg>
+<var>${response}</var>
+<arg>tb_spi_transfer 0xFF</arg>
+<status status="PASS" start="2026-06-10T13:41:12.622059" elapsed="2.215319"/>
+</kw>
+<kw name="SPI Transfer Response Should Match">
+<msg time="2026-06-10T13:41:14.838112" level="FAIL">No keyword with name 'SPI Transfer Response Should Match' found.</msg>
+<arg>${response}</arg>
+<arg>0xFF</arg>
+<status status="FAIL" start="2026-06-10T13:41:14.838058" elapsed="0.000106">No keyword with name 'SPI Transfer Response Should Match' found.</status>
+</kw>
+<status status="FAIL" start="2026-06-10T13:41:12.621849" elapsed="2.216523">No keyword with name 'SPI Transfer Response Should Match' found.</status>
+</test>
+<kw name="Close Connection" owner="testbench_serial" type="TEARDOWN">
+<status status="PASS" start="2026-06-10T13:41:14.838704" elapsed="0.109036"/>
+</kw>
+<status status="FAIL" start="2026-06-10T13:41:02.740144" elapsed="12.207640"/>
+</suite>
+<suite id="s1-s4" name="04 Spi External" source="/home/ayman/zephyrproject/iti_applications/Test-Bench/Robot_Framework/tests/04_spi_external.robot">
+<kw name="Open Connection" owner="testbench_serial" type="SETUP">
+<status status="PASS" start="2026-06-10T13:41:14.949446" elapsed="1.001755"/>
+</kw>
+<test id="s1-s4-t1" name="Communication Ping Test" line="8">
+<kw name="Send Shell Command" owner="testbench_serial">
+<msg time="2026-06-10T13:41:18.169591" level="INFO">${response} = tb_ping
+PONG
+[1;32mblackpill:~$ [m</msg>
+<var>${response}</var>
+<arg>tb_ping</arg>
+<status status="PASS" start="2026-06-10T13:41:15.951576" elapsed="2.218050"/>
+</kw>
+<kw name="Response Should Contain" owner="testbench_serial">
+<arg>${response}</arg>
+<arg>PONG</arg>
+<status status="PASS" start="2026-06-10T13:41:18.169831" elapsed="0.000114"/>
+</kw>
+<status status="PASS" start="2026-06-10T13:41:15.951271" elapsed="2.218766"/>
+</test>
+<test id="s1-s4-t2" name="SPI External DUT Slave Ping Test" line="12">
+<kw name="Send Shell Command" owner="testbench_serial">
+<msg time="2026-06-10T13:41:20.384053" level="INFO">${response} = tb_spi_slave_ping
+SPI_SLAVE_PING PASS TX 0xA5 RX 0x5A
+[1;32mblackpill:~$ [m</msg>
+<var>${response}</var>
+<arg>tb_spi_slave_ping</arg>
+<status status="PASS" start="2026-06-10T13:41:18.170384" elapsed="2.213703"/>
+</kw>
+<kw name="Spi Slave Ping Response Should Pass" owner="testbench_serial">
+<msg time="2026-06-10T13:41:20.384587" level="INFO">SPI External DUT TX = 0xA5</msg>
+<msg time="2026-06-10T13:41:20.384693" level="INFO">SPI External DUT RX = 0x5A</msg>
+<arg>${response}</arg>
+<status status="PASS" start="2026-06-10T13:41:20.384272" elapsed="0.000500"/>
+</kw>
+<status status="PASS" start="2026-06-10T13:41:18.170174" elapsed="2.214765"/>
+</test>
+<test id="s1-s4-t3" name="SPI External DUT Slave Ping Repeat Test" line="16">
+<kw name="Send Shell Command" owner="testbench_serial">
+<msg time="2026-06-10T13:41:22.601927" level="INFO">${response} = tb_spi_slave_ping
+SPI_SLAVE_PING PASS TX 0xA5 RX 0x5A
+[1;32mblackpill:~$ [m</msg>
+<var>${response}</var>
+<arg>tb_spi_slave_ping</arg>
+<status status="PASS" start="2026-06-10T13:41:20.385333" elapsed="2.216627"/>
+</kw>
+<kw name="Spi Slave Ping Response Should Pass" owner="testbench_serial">
+<msg time="2026-06-10T13:41:22.602300" level="INFO">SPI External DUT TX = 0xA5</msg>
+<msg time="2026-06-10T13:41:22.602338" level="INFO">SPI External DUT RX = 0x5A</msg>
+<arg>${response}</arg>
+<status status="PASS" start="2026-06-10T13:41:22.602145" elapsed="0.000226"/>
+</kw>
+<status status="PASS" start="2026-06-10T13:41:20.385115" elapsed="2.217409"/>
+</test>
+<kw name="Close Connection" owner="testbench_serial" type="TEARDOWN">
+<status status="PASS" start="2026-06-10T13:41:22.602961" elapsed="0.104380"/>
+</kw>
+<status status="PASS" start="2026-06-10T13:41:14.948241" elapsed="7.759147"/>
+</suite>
+<suite id="s1-s5" name="05 Dio External" source="/home/ayman/zephyrproject/iti_applications/Test-Bench/Robot_Framework/tests/05_dio_external.robot">
+<kw name="Open Connection" owner="testbench_serial" type="SETUP">
+<status status="PASS" start="2026-06-10T13:41:22.708970" elapsed="1.001497"/>
+</kw>
+<test id="s1-s5-t1" name="Communication Ping Test" line="8">
+<kw name="Send Shell Command" owner="testbench_serial">
+<msg time="2026-06-10T13:41:25.928888" level="INFO">${response} = tb_ping
+PONG
+[1;32mblackpill:~$ [m</msg>
+<var>${response}</var>
+<arg>tb_ping</arg>
+<status status="PASS" start="2026-06-10T13:41:23.710836" elapsed="2.218086"/>
+</kw>
+<kw name="Response Should Contain" owner="testbench_serial">
+<arg>${response}</arg>
+<arg>PONG</arg>
+<status status="PASS" start="2026-06-10T13:41:25.929108" elapsed="0.000123"/>
+</kw>
+<status status="PASS" start="2026-06-10T13:41:23.710536" elapsed="2.218836"/>
+</test>
+<test id="s1-s5-t2" name="DIO External DUT Mirror Test" line="12">
+<kw name="Send Shell Command" owner="testbench_serial">
+<msg time="2026-06-10T13:41:28.148592" level="INFO">${response} = tb_dio_test
+DIO_TEST PASS HIGH 1 LOW 0
+[1;32mblackpill:~$ [m</msg>
+<var>${response}</var>
+<arg>tb_dio_test</arg>
+<status status="PASS" start="2026-06-10T13:41:25.929970" elapsed="2.218656"/>
+</kw>
+<kw name="Dio Test Response Should Pass" owner="testbench_serial">
+<msg time="2026-06-10T13:41:28.149092" level="INFO">DIO external HIGH read = 1</msg>
+<msg time="2026-06-10T13:41:28.149116" level="INFO">DIO external LOW read = 0</msg>
+<arg>${response}</arg>
+<status status="PASS" start="2026-06-10T13:41:28.148851" elapsed="0.000296"/>
+</kw>
+<status status="PASS" start="2026-06-10T13:41:25.929633" elapsed="2.219604"/>
+</test>
+<test id="s1-s5-t3" name="DIO External Write High And Read Test" line="16">
+<kw name="Send Shell Command" owner="testbench_serial">
+<msg time="2026-06-10T13:41:30.367949" level="INFO">${write_response} = tb_dio_write 1
+DIO_WRITE OK VALUE 1
+[1;32mblackpill:~$ [m</msg>
+<var>${write_response}</var>
+<arg>tb_dio_write 1</arg>
+<status status="PASS" start="2026-06-10T13:41:28.149578" elapsed="2.218404"/>
+</kw>
+<kw name="Response Should Contain" owner="testbench_serial">
+<arg>${write_response}</arg>
+<arg>DIO_WRITE OK VALUE 1</arg>
+<status status="PASS" start="2026-06-10T13:41:30.368244" elapsed="0.000226"/>
+</kw>
+<kw name="Send Shell Command" owner="testbench_serial">
+<msg time="2026-06-10T13:41:32.585972" level="INFO">${read_response} = tb_dio_read
+DIO_READ VALUE 1
+[1;32mblackpill:~$ [m</msg>
+<var>${read_response}</var>
+<arg>tb_dio_read</arg>
+<status status="PASS" start="2026-06-10T13:41:30.368748" elapsed="2.217256"/>
+</kw>
+<kw name="Response Should Contain" owner="testbench_serial">
+<arg>${read_response}</arg>
+<arg>DIO_READ VALUE 1</arg>
+<status status="PASS" start="2026-06-10T13:41:32.586191" elapsed="0.000126"/>
+</kw>
+<status status="PASS" start="2026-06-10T13:41:28.149373" elapsed="4.437089"/>
+</test>
+<test id="s1-s5-t4" name="DIO External Write Low And Read Test" line="22">
+<kw name="Send Shell Command" owner="testbench_serial">
+<msg time="2026-06-10T13:41:34.804426" level="INFO">${write_response} = tb_dio_write 0
+DIO_WRITE OK VALUE 0
+[1;32mblackpill:~$ [m</msg>
+<var>${write_response}</var>
+<arg>tb_dio_write 0</arg>
+<status status="PASS" start="2026-06-10T13:41:32.587041" elapsed="2.217419"/>
+</kw>
+<kw name="Response Should Contain" owner="testbench_serial">
+<arg>${write_response}</arg>
+<arg>DIO_WRITE OK VALUE 0</arg>
+<status status="PASS" start="2026-06-10T13:41:34.804674" elapsed="0.000143"/>
+</kw>
+<kw name="Send Shell Command" owner="testbench_serial">
+<msg time="2026-06-10T13:41:37.020033" level="INFO">${read_response} = tb_dio_read
+DIO_READ VALUE 0
+[1;32mblackpill:~$ [m</msg>
+<var>${read_response}</var>
+<arg>tb_dio_read</arg>
+<status status="PASS" start="2026-06-10T13:41:34.804966" elapsed="2.215101"/>
+</kw>
+<kw name="Response Should Contain" owner="testbench_serial">
+<arg>${read_response}</arg>
+<arg>DIO_READ VALUE 0</arg>
+<status status="PASS" start="2026-06-10T13:41:37.020252" elapsed="0.000123"/>
+</kw>
+<status status="PASS" start="2026-06-10T13:41:32.586754" elapsed="4.433764"/>
+</test>
+<kw name="Close Connection" owner="testbench_serial" type="TEARDOWN">
+<status status="PASS" start="2026-06-10T13:41:37.020957" elapsed="0.102831"/>
+</kw>
+<status status="PASS" start="2026-06-10T13:41:22.707833" elapsed="14.416001"/>
+</suite>
+<status status="FAIL" start="2026-06-10T13:40:42.756209" elapsed="54.368115"/>
 </suite>
 <statistics>
 <total>
-<stat pass="3" fail="0" skip="0">All Tests</stat>
+<stat pass="14" fail="4" skip="0">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat name="Uart Test" id="s1" pass="3" fail="0" skip="0">Uart Test</stat>
+<stat name="Tests" id="s1" pass="14" fail="4" skip="0">Tests</stat>
+<stat name="01 Dio" id="s1-s1" pass="4" fail="0" skip="0">Tests.01 Dio</stat>
+<stat name="02 Adc" id="s1-s2" pass="2" fail="0" skip="0">Tests.02 Adc</stat>
+<stat name="03 Spi" id="s1-s3" pass="1" fail="4" skip="0">Tests.03 Spi</stat>
+<stat name="04 Spi External" id="s1-s4" pass="3" fail="0" skip="0">Tests.04 Spi External</stat>
+<stat name="05 Dio External" id="s1-s5" pass="4" fail="0" skip="0">Tests.05 Dio External</stat>
 </suite>
 </statistics>
 <errors>

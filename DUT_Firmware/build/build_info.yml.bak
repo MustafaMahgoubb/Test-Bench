@@ -1,0 +1,5 @@
+west:
+  command: /home/ayman/zephyrproject/.venv/bin/west build -b blackpill_f401cc -p always
+    . -- -DDTC_OVERLAY_FILE=boards/dutBoard.overlay
+  topdir: /home/ayman/zephyrproject
+  version: 1.5.0

@@ -1,0 +1,33 @@
+#include <zephyr/dt-bindings/gpio/gpio.h>
+
+/ {
+    aliases {
+        dut-dio-in = &dut_dio_in_pin;
+        dut-dio-out = &dut_dio_out_pin;
+    };
+
+    dut_dio_inputs {
+        compatible = "gpio-keys";
+
+        dut_dio_in_pin: dut_dio_in_pin {
+            gpios = <&gpiob 8 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
+            label = "DUT_DIO_IN_PB8";
+        };
+    };
+
+    dut_dio_outputs {
+        compatible = "gpio-leds";
+
+        dut_dio_out_pin: dut_dio_out_pin {
+            gpios = <&gpiob 9 GPIO_ACTIVE_HIGH>;
+            label = "DUT_DIO_OUT_PB9";
+        };
+    };
+};
+
+&spi1 {
+    status = "okay";
+    pinctrl-0 = <&spi1_nss_pa4 &spi1_sck_pa5 &spi1_miso_pa6 &spi1_mosi_pa7>;
+    pinctrl-names = "default";
+};
+

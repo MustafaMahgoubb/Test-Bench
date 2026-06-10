@@ -1,3 +1,50 @@
+#include <zephyr/dt-bindings/gpio/gpio.h>
+
+/ {
+aliases {
+dio-out = &dio_out_pin;
+dio-in = &dio_in_pin;
+spi-cs = &spi_cs_pin;
+};
+
+
+dio_outputs {
+    compatible = "gpio-leds";
+
+    dio_out_pin: dio_out_pin {
+        gpios = <&gpiob 8 GPIO_ACTIVE_HIGH>;
+        label = "DIO_OUT_PB8";
+    };
+
+    spi_cs_pin: spi_cs_pin {
+        gpios = <&gpioa 4 GPIO_ACTIVE_LOW>;
+        label = "SPI_CS_PA4";
+    };
+};
+
+dio_inputs {
+    compatible = "gpio-keys";
+
+    dio_in_pin: dio_in_pin {
+        gpios = <&gpiob 9 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
+        label = "DIO_IN_PB9";
+    };
+};
+
+
+};
+
+&adc1 {
+status = "okay";
+pinctrl-0 = <&adc1_in8_pb0>;
+pinctrl-names = "default";
+};
+
+&spi1 {
+status = "okay";
+pinctrl-0 = <&spi1_sck_pa5 &spi1_miso_pa6 &spi1_mosi_pa7>;
+pinctrl-names = "default";
+};
 /*
  * This is the Overlay file used in Test Bench Project
  *
@@ -17,7 +64,7 @@
  * ==========================================
  */
 
-/*  
+/*
  * For PWM Out, the Test Bench supports PA0 (Channel 1) and PA1 (Channel 2).
  * Both of these pins are driven by Hardware Timer 2.
  */
@@ -33,7 +80,7 @@
 };
 
 
-/*  
+/*
  * For PWM In, the Test Bench supports PB4 (Channel 1) and PB5 (Channel 2).
  * Both of these pins are driven by Hardware Timer 3.
  */
@@ -58,8 +105,8 @@
  */
 
 
-/*  
- * For UART, The Test Bench provides Uart Features features on 
+/*
+ * For UART, The Test Bench provides Uart Features features on
  * 2 UART Channels -> UART_CH1 (UART2 PA2(Tx) PA3(Rx)) and (UART_CH2 UART6 PA11(Tx) PA12(Rx))
  */
 &usart2 {
@@ -83,34 +130,34 @@
  */
 
 / {
-	/* 
+	/*
 	 * Define custom nodes for the Test Bench.
 	 * This links the physical hardware (pwm2) to a logical test channel.
 	 */
 	test_bench_pwms {
-		compatible = "pwm-leds"; 
-		
+		compatible = "pwm-leds";
+
 		pwm_out_1: pwm_out_1 {
 			/* <&hardware_node   channel   default_period   flags> */
-			pwms = <&pwm2 1 0 PWM_POLARITY_NORMAL>; 
+			pwms = <&pwm2 1 0 PWM_POLARITY_NORMAL>;
 		};
-		
+
 		pwm_out_2: pwm_out_2 {
-			pwms = <&pwm2 2 0 PWM_POLARITY_NORMAL>; 
+			pwms = <&pwm2 2 0 PWM_POLARITY_NORMAL>;
 		};
 
 		pwm_in_1: pwm_in_1 {
             /* Use pwm3, Channel 1 */
-            pwms = <&pwm3 1 0 PWM_POLARITY_NORMAL>; 
+            pwms = <&pwm3 1 0 PWM_POLARITY_NORMAL>;
         };
 
 		pwm_in_2: pwm_in_2 {
             /* Use pwm3, Channel 1 */
-            pwms = <&pwm3 2 0 PWM_POLARITY_NORMAL>; 
+            pwms = <&pwm3 2 0 PWM_POLARITY_NORMAL>;
         };
 	};
 
-	/* 
+	/*
 	 * Create aliases so the C code can easily find these nodes
 	 * using DT_ALIAS(pwmout1)
 	 */
