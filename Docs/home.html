@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - HIL Test Bench</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --text-color: #f8fafc;
+            --accent-color: #3b82f6;
+            --secondary-bg: #1e293b;
+            --border-color: #334155;
+            --success: #10b981;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: transparent;
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0 auto;
+            padding: 2rem;
+            max-width: 1000px;
+        }
+
+        h1, h2, h3 { color: var(--accent-color); }
+
+        h1 {
+            font-size: 2.5rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+        }
+
+        .card {
+            background-color: var(--secondary-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        .benefit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .benefit-item {
+            background: rgba(59, 130, 246, 0.05);
+            border-left: 4px solid var(--accent-color);
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .benefit-item h3 { margin-top: 0; color: var(--text-color); font-size: 1.1rem;}
+
+        .pinout-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+            display: block;
+            margin: 2rem auto;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 2rem 0;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: #cbd5e1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero">
+        <h1>Hardware-in-the-Loop Test Bench</h1>
+        <p>A fully automated, Zephyr RTOS-powered validation suite designed for testing Electronic Control Units (ECUs) and Automotive/Industrial components.</p>
+    </div>
+
+    <div class="card">
+        <h2>Project Overview</h2>
+        <p>This project transforms an STM32F401 Blackpill into a powerful validation tool. By bridging a Python/Robot Framework host application with an interrupt-driven Zephyr RTOS firmware, the Test Bench allows QA engineers and developers to instantly inject faults, send serial streams, and measure precisely timed hardware signals (like PWM) completely autonomously.</p>
+        
+        <div class="benefit-grid">
+            <div class="benefit-item">
+                <h3>Continuous Integration (CI/CD)</h3>
+                <p>Fully compatible with Jenkins and GitHub actions. Run thousands of physical hardware test cases automatically on every code commit.</p>
+            </div>
+            <div class="benefit-item">
+                <h3>Robot Framework Powered</h3>
+                <p>Engineers can write tests in plain English using our custom <code>TestBenchLibrary.py</code> keywords, requiring zero embedded programming knowledge.</p>
+            </div>
+            <div class="benefit-item">
+                <h3>Sub-millisecond Precision</h3>
+                <p>Utilizing hardware timers, Direct Memory Access (DMA), and Interrupt Service Routines to guarantee strict timing constraints are met.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Hardware Pinout Reference</h2>
+        <p>Ensure your jumper wires and logic analyzers are connected to the correct STM32 pins before launching the Robot Framework suite.</p>
+        <img src="Pinout.png" alt="Blackpill Pinout Diagram" class="pinout-img">
+    </div>
+
+</body>
+</html>

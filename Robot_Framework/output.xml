@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.2 (Python 3.10.12 on linux)" generated="2026-06-10T05:15:50.826860" rpa="false" schemaversion="5">
+<suite id="s1" name="Uart Test" source="/home/mustafa/Embedded_ITI_9M/projects/Test-Bench/Robot_Framework/uart_test.robot">
+<kw name="Clear UART Buffers" type="SETUP">
+<kw name="Uart Clear" owner="TestBenchLibrary">
+<arg>${TEST_CHANNEL}</arg>
+<doc>This Python function becomes a Robot Keyword!</doc>
+<status status="PASS" start="2026-06-10T05:15:51.968771" elapsed="1.102990"/>
+</kw>
+<status status="PASS" start="2026-06-10T05:15:51.967204" elapsed="1.104696"/>
+</kw>
+<test id="s1-t1" name="Test UART Send And Read (Loopback)" line="15">
+<kw name="Uart Clear" owner="TestBenchLibrary">
+<arg>${TEST_CHANNEL}</arg>
+<doc>This Python function becomes a Robot Keyword!</doc>
+<status status="PASS" start="2026-06-10T05:15:53.072649" elapsed="1.102645"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-06-10T05:15:54.177755" level="INFO">${payload} = Robot_Test_Message</msg>
+<var>${payload}</var>
+<arg>Robot_Test_Message</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-06-10T05:15:54.176014" elapsed="0.001870"/>
+</kw>
+<kw name="Uart Send" owner="TestBenchLibrary">
+<arg>${TEST_CHANNEL}</arg>
+<arg>${payload}</arg>
+<doc>This Python function becomes a Robot Keyword!</doc>
+<status status="PASS" start="2026-06-10T05:15:54.178466" elapsed="0.101184"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-06-10T05:15:54.481949" level="INFO">Slept 200 milliseconds.</msg>
+<arg>0.2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-06-10T05:15:54.280394" elapsed="0.201925"/>
+</kw>
+<kw name="Uart Read" owner="TestBenchLibrary">
+<msg time="2026-06-10T05:15:54.585141" level="INFO">${response} = Robot_Test_Message</msg>
+<var>${response}</var>
+<arg>${TEST_CHANNEL}</arg>
+<doc>This Python function becomes a Robot Keyword!</doc>
+<status status="PASS" start="2026-06-10T05:15:54.482984" elapsed="0.102310"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${response}</arg>
+<arg>${payload}</arg>
+<arg>msg=Failed! Did you connect the loopback wire?</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-06-10T05:15:54.585936" elapsed="0.001734"/>
+</kw>
+<doc>Sends a payload and verifies the identical payload is received via hardware loopback.</doc>
+<status status="PASS" start="2026-06-10T05:15:53.071996" elapsed="1.516318"/>
+</test>
+<test id="s1-t2" name="Test UART Buffer Clearing" line="31">
+<kw name="Uart Send" owner="TestBenchLibrary">
+<arg>${TEST_CHANNEL}</arg>
+<arg>GarbageData123</arg>
+<doc>This Python function becomes a Robot Keyword!</doc>
+<status status="PASS" start="2026-06-10T05:15:54.590789" elapsed="1.103090"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-06-10T05:15:55.896176" level="INFO">Slept 200 milliseconds.</msg>
+<arg>0.2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-06-10T05:15:55.694626" elapsed="0.201871"/>
+</kw>
+<kw name="Uart Clear" owner="TestBenchLibrary">
+<arg>${TEST_CHANNEL}</arg>
+<doc>This Python function becomes a Robot Keyword!</doc>
+<status status="PASS" start="2026-06-10T05:15:55.897185" elapsed="0.101225"/>
+</kw>
+<kw name="Uart Read" owner="TestBenchLibrary">
+<msg time="2026-06-10T05:15:56.100635" level="INFO">${response} = </msg>
+<var>${response}</var>
+<arg>${TEST_CHANNEL}</arg>
+<doc>This Python function becomes a Robot Keyword!</doc>
+<status status="PASS" start="2026-06-10T05:15:55.999177" elapsed="0.101611"/>
+</kw>
+<kw name="Should Not Contain" owner="BuiltIn">
+<arg>${response}</arg>
+<arg>GarbageData123</arg>
+<arg>msg=Clear command failed, old data was still in the buffer!</arg>
+<doc>Fails if ``container`` contains ``item`` one or more times.</doc>
+<status status="PASS" start="2026-06-10T05:15:56.101434" elapsed="0.001908"/>
+</kw>
+<doc>Ensures the clear command successfully drops old unread data.</doc>
+<status status="PASS" start="2026-06-10T05:15:54.589272" elapsed="1.514666"/>
+</test>
+<test id="s1-t3" name="Test Dynamic Baudrate Switching" line="42">
+<kw name="Uart Set Baudrate" owner="TestBenchLibrary">
+<arg>${TEST_CHANNEL}</arg>
+<arg>9600</arg>
+<doc>This Python function becomes a Robot Keyword!</doc>
+<status status="PASS" start="2026-06-10T05:15:56.106218" elapsed="1.103185"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-06-10T05:15:57.411671" level="INFO">Slept 200 milliseconds.</msg>
+<arg>0.2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-06-10T05:15:57.210209" elapsed="0.201790"/>
+</kw>
+<kw name="Uart Clear" owner="TestBenchLibrary">
+<arg>${TEST_CHANNEL}</arg>
+<doc>This Python function becomes a Robot Keyword!</doc>
+<status status="PASS" start="2026-06-10T05:15:57.412671" elapsed="0.101422"/>
+</kw>
+<kw name="Uart Send" owner="TestBenchLibrary">
+<arg>${TEST_CHANNEL}</arg>
+<arg>SlowMessage</arg>
+<doc>This Python function becomes a Robot Keyword!</doc>
+<status status="PASS" start="2026-06-10T05:15:57.514793" elapsed="0.101459"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-06-10T05:15:58.118341" level="INFO">Slept 500 milliseconds.</msg>
+<arg>0.5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-06-10T05:15:57.616944" elapsed="0.501753"/>
+</kw>
+<kw name="Uart Read" owner="TestBenchLibrary">
+<msg time="2026-06-10T05:15:58.220779" level="INFO">${response} = SlowMessage</msg>
+<var>${response}</var>
+<arg>${TEST_CHANNEL}</arg>
+<doc>This Python function becomes a Robot Keyword!</doc>
+<status status="PASS" start="2026-06-10T05:15:58.119393" elapsed="0.101543"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${response}</arg>
+<arg>SlowMessage</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" start="2026-06-10T05:15:58.221755" elapsed="0.001495"/>
+</kw>
+<kw name="Uart Set Baudrate" owner="TestBenchLibrary">
+<arg>${TEST_CHANNEL}</arg>
+<arg>${BAUDRATE}</arg>
+<doc>This Python function becomes a Robot Keyword!</doc>
+<status status="PASS" start="2026-06-10T05:15:58.223885" elapsed="0.101445"/>
+</kw>
+<doc>Tests changing the baudrate on the fly.</doc>
+<status status="PASS" start="2026-06-10T05:15:56.104849" elapsed="2.221365"/>
+</test>
+<kw name="Close Connection" owner="TestBenchLibrary" type="TEARDOWN">
+<status status="PASS" start="2026-06-10T05:15:58.328376" elapsed="0.106808"/>
+</kw>
+<doc>Hardware-in-the-Loop Test Suite for UART Driver.
+REQUIREMENT: You MUST connect a jumper wire between PA11 (TX) and PA12 (RX) for Channel 2 Loopback testing!</doc>
+<status status="PASS" start="2026-06-10T05:15:50.827592" elapsed="7.607787"/>
+</suite>
+<statistics>
+<total>
+<stat pass="3" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Uart Test" id="s1" pass="3" fail="0" skip="0">Uart Test</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
