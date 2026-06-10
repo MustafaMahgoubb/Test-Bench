@@ -1,404 +1,404 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.4.2 (Python 3.12.3 on linux)" generated="2026-06-10T13:17:20.103165" rpa="false" schemaversion="5">
+<robot generator="Robot 7.4.2 (Python 3.12.3 on linux)" generated="2026-06-10T13:40:42.755558" rpa="false" schemaversion="5">
 <suite id="s1" name="Tests" source="/home/ayman/zephyrproject/iti_applications/Test-Bench/Robot_Framework/tests">
 <suite id="s1-s1" name="01 Dio" source="/home/ayman/zephyrproject/iti_applications/Test-Bench/Robot_Framework/tests/01_dio.robot">
 <kw name="Open Connection" owner="testbench_serial" type="SETUP">
-<status status="PASS" start="2026-06-10T13:17:20.132531" elapsed="1.001279"/>
+<status status="PASS" start="2026-06-10T13:40:42.783727" elapsed="1.001498"/>
 </kw>
 <test id="s1-s1-t1" name="Communication Ping Test" line="8">
 <kw name="Send Shell Command" owner="testbench_serial">
-<msg time="2026-06-10T13:17:23.343954" level="INFO">${response} = tb_ping
+<msg time="2026-06-10T13:40:46.004614" level="INFO">${response} = tb_ping
 PONG
-[1;32muart:~$ [m</msg>
+[1;32mblackpill:~$ [m</msg>
 <var>${response}</var>
 <arg>tb_ping</arg>
-<status status="PASS" start="2026-06-10T13:17:21.134251" elapsed="2.209746"/>
+<status status="PASS" start="2026-06-10T13:40:43.785712" elapsed="2.218981"/>
 </kw>
 <kw name="Response Should Contain" owner="testbench_serial">
 <arg>${response}</arg>
 <arg>PONG</arg>
-<status status="PASS" start="2026-06-10T13:17:23.344132" elapsed="0.000125"/>
+<status status="PASS" start="2026-06-10T13:40:46.004952" elapsed="0.000182"/>
 </kw>
-<status status="PASS" start="2026-06-10T13:17:21.133941" elapsed="2.210415"/>
+<status status="PASS" start="2026-06-10T13:40:43.785353" elapsed="2.219959"/>
 </test>
 <test id="s1-s1-t2" name="DIO Loopback Test" line="12">
 <kw name="Send Shell Command" owner="testbench_serial">
-<msg time="2026-06-10T13:17:25.556168" level="INFO">${response} = tb_dio_test
+<msg time="2026-06-10T13:40:48.220166" level="INFO">${response} = tb_dio_test
 DIO_TEST PASS HIGH 1 LOW 0
-[1;32muart:~$ [m</msg>
+[1;32mblackpill:~$ [m</msg>
 <var>${response}</var>
 <arg>tb_dio_test</arg>
-<status status="PASS" start="2026-06-10T13:17:23.344762" elapsed="2.211445"/>
+<status status="PASS" start="2026-06-10T13:40:46.005799" elapsed="2.214405"/>
 </kw>
 <kw name="Response Should Contain" owner="testbench_serial">
 <arg>${response}</arg>
 <arg>DIO_TEST PASS HIGH 1 LOW 0</arg>
-<status status="PASS" start="2026-06-10T13:17:25.556341" elapsed="0.000141"/>
+<status status="PASS" start="2026-06-10T13:40:48.220370" elapsed="0.000142"/>
 </kw>
-<status status="PASS" start="2026-06-10T13:17:23.344496" elapsed="2.212099"/>
+<status status="PASS" start="2026-06-10T13:40:46.005518" elapsed="2.215179"/>
 </test>
 <test id="s1-s1-t3" name="DIO Write High And Read Test" line="16">
 <kw name="Send Shell Command" owner="testbench_serial">
-<msg time="2026-06-10T13:17:27.766044" level="INFO">${write_response} = tb_dio_write 1
+<msg time="2026-06-10T13:40:50.438452" level="INFO">${write_response} = tb_dio_write 1
 DIO_WRITE OK VALUE 1
-[1;32muart:~$ [m</msg>
+[1;32mblackpill:~$ [m</msg>
 <var>${write_response}</var>
 <arg>tb_dio_write 1</arg>
-<status status="PASS" start="2026-06-10T13:17:25.557132" elapsed="2.208947"/>
+<status status="PASS" start="2026-06-10T13:40:48.221266" elapsed="2.217221"/>
 </kw>
 <kw name="Response Should Contain" owner="testbench_serial">
 <arg>${write_response}</arg>
 <arg>DIO_WRITE OK VALUE 1</arg>
-<status status="PASS" start="2026-06-10T13:17:27.766213" elapsed="0.000123"/>
+<status status="PASS" start="2026-06-10T13:40:50.438702" elapsed="0.000142"/>
 </kw>
 <kw name="Send Shell Command" owner="testbench_serial">
-<msg time="2026-06-10T13:17:29.975004" level="INFO">${read_response} = tb_dio_read
+<msg time="2026-06-10T13:40:52.656189" level="INFO">${read_response} = tb_dio_read
 DIO_READ VALUE 1
-[1;32muart:~$ [m</msg>
+[1;32mblackpill:~$ [m</msg>
 <var>${read_response}</var>
 <arg>tb_dio_read</arg>
-<status status="PASS" start="2026-06-10T13:17:27.766433" elapsed="2.208606"/>
+<status status="PASS" start="2026-06-10T13:40:50.438984" elapsed="2.217239"/>
 </kw>
 <kw name="Response Should Contain" owner="testbench_serial">
 <arg>${read_response}</arg>
 <arg>DIO_READ VALUE 1</arg>
-<status status="PASS" start="2026-06-10T13:17:29.975205" elapsed="0.000126"/>
+<status status="PASS" start="2026-06-10T13:40:52.656420" elapsed="0.000127"/>
 </kw>
-<status status="PASS" start="2026-06-10T13:17:25.556820" elapsed="4.418644"/>
+<status status="PASS" start="2026-06-10T13:40:48.220986" elapsed="4.435713"/>
 </test>
 <test id="s1-s1-t4" name="DIO Write Low And Read Test" line="22">
 <kw name="Send Shell Command" owner="testbench_serial">
-<msg time="2026-06-10T13:17:32.185973" level="INFO">${write_response} = tb_dio_write 0
+<msg time="2026-06-10T13:40:54.869096" level="INFO">${write_response} = tb_dio_write 0
 DIO_WRITE OK VALUE 0
-[1;32muart:~$ [m</msg>
+[1;32mblackpill:~$ [m</msg>
 <var>${write_response}</var>
 <arg>tb_dio_write 0</arg>
-<status status="PASS" start="2026-06-10T13:17:29.975974" elapsed="2.210034"/>
+<status status="PASS" start="2026-06-10T13:40:52.657246" elapsed="2.211884"/>
 </kw>
 <kw name="Response Should Contain" owner="testbench_serial">
 <arg>${write_response}</arg>
 <arg>DIO_WRITE OK VALUE 0</arg>
-<status status="PASS" start="2026-06-10T13:17:32.186187" elapsed="0.000130"/>
+<status status="PASS" start="2026-06-10T13:40:54.869326" elapsed="0.000129"/>
 </kw>
 <kw name="Send Shell Command" owner="testbench_serial">
-<msg time="2026-06-10T13:17:34.398720" level="INFO">${read_response} = tb_dio_read
+<msg time="2026-06-10T13:40:57.087321" level="INFO">${read_response} = tb_dio_read
 DIO_READ VALUE 0
-[1;32muart:~$ [m</msg>
+[1;32mblackpill:~$ [m</msg>
 <var>${read_response}</var>
 <arg>tb_dio_read</arg>
-<status status="PASS" start="2026-06-10T13:17:32.186454" elapsed="2.212303"/>
+<status status="PASS" start="2026-06-10T13:40:54.869595" elapsed="2.217760"/>
 </kw>
 <kw name="Response Should Contain" owner="testbench_serial">
 <arg>${read_response}</arg>
 <arg>DIO_READ VALUE 0</arg>
-<status status="PASS" start="2026-06-10T13:17:34.398923" elapsed="0.000126"/>
+<status status="PASS" start="2026-06-10T13:40:57.087613" elapsed="0.000199"/>
 </kw>
-<status status="PASS" start="2026-06-10T13:17:29.975717" elapsed="4.423479"/>
+<status status="PASS" start="2026-06-10T13:40:52.656945" elapsed="4.431016"/>
 </test>
 <kw name="Close Connection" owner="testbench_serial" type="TEARDOWN">
-<status status="PASS" start="2026-06-10T13:17:34.399626" elapsed="0.107934"/>
+<status status="PASS" start="2026-06-10T13:40:57.088417" elapsed="0.106979"/>
 </kw>
-<status status="PASS" start="2026-06-10T13:17:20.128156" elapsed="14.379451"/>
+<status status="PASS" start="2026-06-10T13:40:42.779627" elapsed="14.415816"/>
 </suite>
 <suite id="s1-s2" name="02 Adc" source="/home/ayman/zephyrproject/iti_applications/Test-Bench/Robot_Framework/tests/02_adc.robot">
 <kw name="Open Connection" owner="testbench_serial" type="SETUP">
-<status status="PASS" start="2026-06-10T13:17:34.509537" elapsed="1.001352"/>
+<status status="PASS" start="2026-06-10T13:40:57.197335" elapsed="1.001190"/>
 </kw>
 <test id="s1-s2-t1" name="Communication Ping Test" line="8">
 <kw name="Send Shell Command" owner="testbench_serial">
-<msg time="2026-06-10T13:17:37.720574" level="INFO">${response} = tb_ping
+<msg time="2026-06-10T13:41:00.417198" level="INFO">${response} = tb_ping
 PONG
-[1;32muart:~$ [m</msg>
+[1;32mblackpill:~$ [m</msg>
 <var>${response}</var>
 <arg>tb_ping</arg>
-<status status="PASS" start="2026-06-10T13:17:35.511220" elapsed="2.209390"/>
+<status status="PASS" start="2026-06-10T13:40:58.198974" elapsed="2.218257"/>
 </kw>
 <kw name="Response Should Contain" owner="testbench_serial">
 <arg>${response}</arg>
 <arg>PONG</arg>
-<status status="PASS" start="2026-06-10T13:17:37.720754" elapsed="0.000125"/>
+<status status="PASS" start="2026-06-10T13:41:00.417424" elapsed="0.000126"/>
 </kw>
-<status status="PASS" start="2026-06-10T13:17:35.510962" elapsed="2.210019"/>
+<status status="PASS" start="2026-06-10T13:40:58.198597" elapsed="2.219134"/>
 </test>
 <test id="s1-s2-t2" name="ADC Potentiometer Read Test" line="12">
 <kw name="Send Shell Command" owner="testbench_serial">
-<msg time="2026-06-10T13:17:39.930312" level="INFO">${response} = tb_adc_read
-ADC_READ RAW 2194 MV 1768
-[1;32muart:~$ [m</msg>
+<msg time="2026-06-10T13:41:02.635560" level="INFO">${response} = tb_adc_read
+ADC_READ RAW 324 MV 261
+[1;32mblackpill:~$ [m</msg>
 <var>${response}</var>
 <arg>tb_adc_read</arg>
-<status status="PASS" start="2026-06-10T13:17:37.721451" elapsed="2.208897"/>
+<status status="PASS" start="2026-06-10T13:41:00.418261" elapsed="2.217333"/>
 </kw>
 <kw name="Response Should Contain" owner="testbench_serial">
 <arg>${response}</arg>
 <arg>ADC_READ RAW</arg>
-<status status="PASS" start="2026-06-10T13:17:39.930481" elapsed="0.000125"/>
+<status status="PASS" start="2026-06-10T13:41:02.635837" elapsed="0.000128"/>
 </kw>
 <kw name="Adc Response Should Be Valid" owner="testbench_serial">
-<msg time="2026-06-10T13:17:39.931075" level="INFO">ADC RAW value = 2194</msg>
-<msg time="2026-06-10T13:17:39.931118" level="INFO">ADC voltage = 1768 mV</msg>
+<msg time="2026-06-10T13:41:02.636462" level="INFO">ADC RAW value = 324</msg>
+<msg time="2026-06-10T13:41:02.636508" level="INFO">ADC voltage = 261 mV</msg>
 <arg>${response}</arg>
-<status status="PASS" start="2026-06-10T13:17:39.930728" elapsed="0.000435"/>
+<status status="PASS" start="2026-06-10T13:41:02.636102" elapsed="0.000442"/>
 </kw>
-<status status="PASS" start="2026-06-10T13:17:37.721144" elapsed="2.210139"/>
+<status status="PASS" start="2026-06-10T13:41:00.417978" elapsed="2.218728"/>
 </test>
 <kw name="Close Connection" owner="testbench_serial" type="TEARDOWN">
-<status status="PASS" start="2026-06-10T13:17:39.931526" elapsed="0.103792"/>
+<status status="PASS" start="2026-06-10T13:41:02.637022" elapsed="0.102611"/>
 </kw>
-<status status="PASS" start="2026-06-10T13:17:34.507992" elapsed="5.527374"/>
+<status status="PASS" start="2026-06-10T13:40:57.195979" elapsed="5.543737"/>
 </suite>
 <suite id="s1-s3" name="03 Spi" source="/home/ayman/zephyrproject/iti_applications/Test-Bench/Robot_Framework/tests/03_spi.robot">
 <kw name="Open Connection" owner="testbench_serial" type="SETUP">
-<status status="PASS" start="2026-06-10T13:17:40.037297" elapsed="1.001505"/>
+<status status="PASS" start="2026-06-10T13:41:02.741572" elapsed="1.001710"/>
 </kw>
 <test id="s1-s3-t1" name="Communication Ping Test" line="8">
 <kw name="Send Shell Command" owner="testbench_serial">
-<msg time="2026-06-10T13:17:43.248591" level="INFO">${response} = tb_ping
+<msg time="2026-06-10T13:41:05.961905" level="INFO">${response} = tb_ping
 PONG
-[1;32muart:~$ [m</msg>
+[1;32mblackpill:~$ [m</msg>
 <var>${response}</var>
 <arg>tb_ping</arg>
-<status status="PASS" start="2026-06-10T13:17:41.039132" elapsed="2.209500"/>
+<status status="PASS" start="2026-06-10T13:41:03.743691" elapsed="2.218257"/>
 </kw>
 <kw name="Response Should Contain" owner="testbench_serial">
 <arg>${response}</arg>
 <arg>PONG</arg>
-<status status="PASS" start="2026-06-10T13:17:43.248841" elapsed="0.000110"/>
+<status status="PASS" start="2026-06-10T13:41:05.962136" elapsed="0.000126"/>
 </kw>
-<status status="PASS" start="2026-06-10T13:17:41.038873" elapsed="2.210184"/>
+<status status="PASS" start="2026-06-10T13:41:03.743350" elapsed="2.219052"/>
 </test>
 <test id="s1-s3-t2" name="SPI Loopback Test" line="12">
 <kw name="Send Shell Command" owner="testbench_serial">
-<msg time="2026-06-10T13:17:45.460344" level="INFO">${response} = tb_spi_test
+<msg time="2026-06-10T13:41:08.179800" level="INFO">${response} = tb_spi_test
 [1;31mSPI_TEST FAIL TX 0xA5 RX 0x00
-[m[1;32muart:~$ [m</msg>
+[m[1;32mblackpill:~$ [m</msg>
 <var>${response}</var>
 <arg>tb_spi_test</arg>
-<status status="PASS" start="2026-06-10T13:17:43.249418" elapsed="2.210965"/>
+<status status="PASS" start="2026-06-10T13:41:05.962975" elapsed="2.216861"/>
 </kw>
 <kw name="SPI Test Response Should Be Valid">
-<msg time="2026-06-10T13:17:45.461282" level="FAIL">No keyword with name 'SPI Test Response Should Be Valid' found.</msg>
+<msg time="2026-06-10T13:41:08.180749" level="FAIL">No keyword with name 'SPI Test Response Should Be Valid' found.</msg>
 <arg>${response}</arg>
-<status status="FAIL" start="2026-06-10T13:17:45.461238" elapsed="0.000088">No keyword with name 'SPI Test Response Should Be Valid' found.</status>
+<status status="FAIL" start="2026-06-10T13:41:08.180689" elapsed="0.000105">No keyword with name 'SPI Test Response Should Be Valid' found.</status>
 </kw>
-<status status="FAIL" start="2026-06-10T13:17:43.249218" elapsed="2.212360">No keyword with name 'SPI Test Response Should Be Valid' found.</status>
+<status status="FAIL" start="2026-06-10T13:41:05.962672" elapsed="2.218450">No keyword with name 'SPI Test Response Should Be Valid' found.</status>
 </test>
 <test id="s1-s3-t3" name="SPI Transfer 0x55 Test" line="16">
 <kw name="Send Shell Command" owner="testbench_serial">
-<msg time="2026-06-10T13:17:47.673768" level="INFO">${response} = tb_spi_transfer 0x55
+<msg time="2026-06-10T13:41:10.400391" level="INFO">${response} = tb_spi_transfer 0x55
 SPI_TRANSFER TX 0x55 RX 0x00
-[1;32muart:~$ [m</msg>
+[1;32mblackpill:~$ [m</msg>
 <var>${response}</var>
 <arg>tb_spi_transfer 0x55</arg>
-<status status="PASS" start="2026-06-10T13:17:45.462119" elapsed="2.211685"/>
+<status status="PASS" start="2026-06-10T13:41:08.181682" elapsed="2.218743"/>
 </kw>
 <kw name="SPI Transfer Response Should Match">
-<msg time="2026-06-10T13:17:47.674786" level="FAIL">No keyword with name 'SPI Transfer Response Should Match' found.</msg>
+<msg time="2026-06-10T13:41:10.401185" level="FAIL">No keyword with name 'SPI Transfer Response Should Match' found.</msg>
 <arg>${response}</arg>
 <arg>0x55</arg>
-<status status="FAIL" start="2026-06-10T13:17:47.674721" elapsed="0.000128">No keyword with name 'SPI Transfer Response Should Match' found.</status>
+<status status="FAIL" start="2026-06-10T13:41:10.401125" elapsed="0.000111">No keyword with name 'SPI Transfer Response Should Match' found.</status>
 </kw>
-<status status="FAIL" start="2026-06-10T13:17:45.461827" elapsed="2.213358">No keyword with name 'SPI Transfer Response Should Match' found.</status>
+<status status="FAIL" start="2026-06-10T13:41:08.181424" elapsed="2.220028">No keyword with name 'SPI Transfer Response Should Match' found.</status>
 </test>
 <test id="s1-s3-t4" name="SPI Transfer 0xA5 Test" line="20">
 <kw name="Send Shell Command" owner="testbench_serial">
-<msg time="2026-06-10T13:17:49.885963" level="INFO">${response} = tb_spi_transfer 0xA5
+<msg time="2026-06-10T13:41:12.620547" level="INFO">${response} = tb_spi_transfer 0xA5
 SPI_TRANSFER TX 0xA5 RX 0x00
-[1;32muart:~$ [m</msg>
+[1;32mblackpill:~$ [m</msg>
 <var>${response}</var>
 <arg>tb_spi_transfer 0xA5</arg>
-<status status="PASS" start="2026-06-10T13:17:47.675856" elapsed="2.210143"/>
+<status status="PASS" start="2026-06-10T13:41:10.401906" elapsed="2.218675"/>
 </kw>
 <kw name="SPI Transfer Response Should Match">
-<msg time="2026-06-10T13:17:49.887226" level="FAIL">No keyword with name 'SPI Transfer Response Should Match' found.</msg>
+<msg time="2026-06-10T13:41:12.621462" level="FAIL">No keyword with name 'SPI Transfer Response Should Match' found.</msg>
 <arg>${response}</arg>
 <arg>0xA5</arg>
-<status status="FAIL" start="2026-06-10T13:17:49.887162" elapsed="0.000130">No keyword with name 'SPI Transfer Response Should Match' found.</status>
+<status status="FAIL" start="2026-06-10T13:41:12.621416" elapsed="0.000082">No keyword with name 'SPI Transfer Response Should Match' found.</status>
 </kw>
-<status status="FAIL" start="2026-06-10T13:17:47.675486" elapsed="2.212110">No keyword with name 'SPI Transfer Response Should Match' found.</status>
+<status status="FAIL" start="2026-06-10T13:41:10.401660" elapsed="2.220028">No keyword with name 'SPI Transfer Response Should Match' found.</status>
 </test>
 <test id="s1-s3-t5" name="SPI Transfer 0xFF Test" line="24">
 <kw name="Send Shell Command" owner="testbench_serial">
-<msg time="2026-06-10T13:17:52.099127" level="INFO">${response} = tb_spi_transfer 0xFF
+<msg time="2026-06-10T13:41:14.837344" level="INFO">${response} = tb_spi_transfer 0xFF
 SPI_TRANSFER TX 0xFF RX 0x00
-[1;32muart:~$ [m</msg>
+[1;32mblackpill:~$ [m</msg>
 <var>${response}</var>
 <arg>tb_spi_transfer 0xFF</arg>
-<status status="PASS" start="2026-06-10T13:17:49.888231" elapsed="2.210929"/>
+<status status="PASS" start="2026-06-10T13:41:12.622059" elapsed="2.215319"/>
 </kw>
 <kw name="SPI Transfer Response Should Match">
-<msg time="2026-06-10T13:17:52.099749" level="FAIL">No keyword with name 'SPI Transfer Response Should Match' found.</msg>
+<msg time="2026-06-10T13:41:14.838112" level="FAIL">No keyword with name 'SPI Transfer Response Should Match' found.</msg>
 <arg>${response}</arg>
 <arg>0xFF</arg>
-<status status="FAIL" start="2026-06-10T13:17:52.099724" elapsed="0.000052">No keyword with name 'SPI Transfer Response Should Match' found.</status>
+<status status="FAIL" start="2026-06-10T13:41:14.838058" elapsed="0.000106">No keyword with name 'SPI Transfer Response Should Match' found.</status>
 </kw>
-<status status="FAIL" start="2026-06-10T13:17:49.887955" elapsed="2.211946">No keyword with name 'SPI Transfer Response Should Match' found.</status>
+<status status="FAIL" start="2026-06-10T13:41:12.621849" elapsed="2.216523">No keyword with name 'SPI Transfer Response Should Match' found.</status>
 </test>
 <kw name="Close Connection" owner="testbench_serial" type="TEARDOWN">
-<status status="PASS" start="2026-06-10T13:17:52.100164" elapsed="0.103404"/>
+<status status="PASS" start="2026-06-10T13:41:14.838704" elapsed="0.109036"/>
 </kw>
-<status status="FAIL" start="2026-06-10T13:17:40.035783" elapsed="12.167830"/>
+<status status="FAIL" start="2026-06-10T13:41:02.740144" elapsed="12.207640"/>
 </suite>
 <suite id="s1-s4" name="04 Spi External" source="/home/ayman/zephyrproject/iti_applications/Test-Bench/Robot_Framework/tests/04_spi_external.robot">
 <kw name="Open Connection" owner="testbench_serial" type="SETUP">
-<status status="PASS" start="2026-06-10T13:17:52.206760" elapsed="1.001154"/>
+<status status="PASS" start="2026-06-10T13:41:14.949446" elapsed="1.001755"/>
 </kw>
 <test id="s1-s4-t1" name="Communication Ping Test" line="8">
 <kw name="Send Shell Command" owner="testbench_serial">
-<msg time="2026-06-10T13:17:55.417885" level="INFO">${response} = tb_ping
+<msg time="2026-06-10T13:41:18.169591" level="INFO">${response} = tb_ping
 PONG
-[1;32muart:~$ [m</msg>
+[1;32mblackpill:~$ [m</msg>
 <var>${response}</var>
 <arg>tb_ping</arg>
-<status status="PASS" start="2026-06-10T13:17:53.208251" elapsed="2.209674"/>
+<status status="PASS" start="2026-06-10T13:41:15.951576" elapsed="2.218050"/>
 </kw>
 <kw name="Response Should Contain" owner="testbench_serial">
 <arg>${response}</arg>
 <arg>PONG</arg>
-<status status="PASS" start="2026-06-10T13:17:55.418140" elapsed="0.000150"/>
+<status status="PASS" start="2026-06-10T13:41:18.169831" elapsed="0.000114"/>
 </kw>
-<status status="PASS" start="2026-06-10T13:17:53.207985" elapsed="2.210433"/>
+<status status="PASS" start="2026-06-10T13:41:15.951271" elapsed="2.218766"/>
 </test>
 <test id="s1-s4-t2" name="SPI External DUT Slave Ping Test" line="12">
 <kw name="Send Shell Command" owner="testbench_serial">
-<msg time="2026-06-10T13:17:57.628654" level="INFO">${response} = tb_spi_slave_ping
+<msg time="2026-06-10T13:41:20.384053" level="INFO">${response} = tb_spi_slave_ping
 SPI_SLAVE_PING PASS TX 0xA5 RX 0x5A
-[1;32muart:~$ [m</msg>
+[1;32mblackpill:~$ [m</msg>
 <var>${response}</var>
 <arg>tb_spi_slave_ping</arg>
-<status status="PASS" start="2026-06-10T13:17:55.419218" elapsed="2.209499"/>
+<status status="PASS" start="2026-06-10T13:41:18.170384" elapsed="2.213703"/>
 </kw>
 <kw name="Spi Slave Ping Response Should Pass" owner="testbench_serial">
-<msg time="2026-06-10T13:17:57.629130" level="INFO">SPI External DUT TX = 0xA5</msg>
-<msg time="2026-06-10T13:17:57.629167" level="INFO">SPI External DUT RX = 0x5A</msg>
+<msg time="2026-06-10T13:41:20.384587" level="INFO">SPI External DUT TX = 0xA5</msg>
+<msg time="2026-06-10T13:41:20.384693" level="INFO">SPI External DUT RX = 0x5A</msg>
 <arg>${response}</arg>
-<status status="PASS" start="2026-06-10T13:17:57.628859" elapsed="0.000353"/>
+<status status="PASS" start="2026-06-10T13:41:20.384272" elapsed="0.000500"/>
 </kw>
-<status status="PASS" start="2026-06-10T13:17:55.418794" elapsed="2.210564"/>
+<status status="PASS" start="2026-06-10T13:41:18.170174" elapsed="2.214765"/>
 </test>
 <test id="s1-s4-t3" name="SPI External DUT Slave Ping Repeat Test" line="16">
 <kw name="Send Shell Command" owner="testbench_serial">
-<msg time="2026-06-10T13:17:59.838351" level="INFO">${response} = tb_spi_slave_ping
+<msg time="2026-06-10T13:41:22.601927" level="INFO">${response} = tb_spi_slave_ping
 SPI_SLAVE_PING PASS TX 0xA5 RX 0x5A
-[1;32muart:~$ [m</msg>
+[1;32mblackpill:~$ [m</msg>
 <var>${response}</var>
 <arg>tb_spi_slave_ping</arg>
-<status status="PASS" start="2026-06-10T13:17:57.629783" elapsed="2.208640"/>
+<status status="PASS" start="2026-06-10T13:41:20.385333" elapsed="2.216627"/>
 </kw>
 <kw name="Spi Slave Ping Response Should Pass" owner="testbench_serial">
-<msg time="2026-06-10T13:17:59.838914" level="INFO">SPI External DUT TX = 0xA5</msg>
-<msg time="2026-06-10T13:17:59.838951" level="INFO">SPI External DUT RX = 0x5A</msg>
+<msg time="2026-06-10T13:41:22.602300" level="INFO">SPI External DUT TX = 0xA5</msg>
+<msg time="2026-06-10T13:41:22.602338" level="INFO">SPI External DUT RX = 0x5A</msg>
 <arg>${response}</arg>
-<status status="PASS" start="2026-06-10T13:17:59.838633" elapsed="0.000348"/>
+<status status="PASS" start="2026-06-10T13:41:22.602145" elapsed="0.000226"/>
 </kw>
-<status status="PASS" start="2026-06-10T13:17:57.629533" elapsed="2.209571"/>
+<status status="PASS" start="2026-06-10T13:41:20.385115" elapsed="2.217409"/>
 </test>
 <kw name="Close Connection" owner="testbench_serial" type="TEARDOWN">
-<status status="PASS" start="2026-06-10T13:17:59.839397" elapsed="0.108170"/>
+<status status="PASS" start="2026-06-10T13:41:22.602961" elapsed="0.104380"/>
 </kw>
-<status status="PASS" start="2026-06-10T13:17:52.203995" elapsed="7.743619"/>
+<status status="PASS" start="2026-06-10T13:41:14.948241" elapsed="7.759147"/>
 </suite>
 <suite id="s1-s5" name="05 Dio External" source="/home/ayman/zephyrproject/iti_applications/Test-Bench/Robot_Framework/tests/05_dio_external.robot">
 <kw name="Open Connection" owner="testbench_serial" type="SETUP">
-<status status="PASS" start="2026-06-10T13:17:59.949407" elapsed="1.001390"/>
+<status status="PASS" start="2026-06-10T13:41:22.708970" elapsed="1.001497"/>
 </kw>
 <test id="s1-s5-t1" name="Communication Ping Test" line="8">
 <kw name="Send Shell Command" owner="testbench_serial">
-<msg time="2026-06-10T13:18:03.164034" level="INFO">${response} = tb_ping
+<msg time="2026-06-10T13:41:25.928888" level="INFO">${response} = tb_ping
 PONG
-[1;32muart:~$ [m</msg>
+[1;32mblackpill:~$ [m</msg>
 <var>${response}</var>
 <arg>tb_ping</arg>
-<status status="PASS" start="2026-06-10T13:18:00.951138" elapsed="2.212931"/>
+<status status="PASS" start="2026-06-10T13:41:23.710836" elapsed="2.218086"/>
 </kw>
 <kw name="Response Should Contain" owner="testbench_serial">
 <arg>${response}</arg>
 <arg>PONG</arg>
-<status status="PASS" start="2026-06-10T13:18:03.164213" elapsed="0.000125"/>
+<status status="PASS" start="2026-06-10T13:41:25.929108" elapsed="0.000123"/>
 </kw>
-<status status="PASS" start="2026-06-10T13:18:00.950867" elapsed="2.213576"/>
+<status status="PASS" start="2026-06-10T13:41:23.710536" elapsed="2.218836"/>
 </test>
 <test id="s1-s5-t2" name="DIO External DUT Mirror Test" line="12">
 <kw name="Send Shell Command" owner="testbench_serial">
-<msg time="2026-06-10T13:18:05.375873" level="INFO">${response} = tb_dio_test
+<msg time="2026-06-10T13:41:28.148592" level="INFO">${response} = tb_dio_test
 DIO_TEST PASS HIGH 1 LOW 0
-[1;32muart:~$ [m</msg>
+[1;32mblackpill:~$ [m</msg>
 <var>${response}</var>
 <arg>tb_dio_test</arg>
-<status status="PASS" start="2026-06-10T13:18:03.164976" elapsed="2.210933"/>
+<status status="PASS" start="2026-06-10T13:41:25.929970" elapsed="2.218656"/>
 </kw>
 <kw name="Dio Test Response Should Pass" owner="testbench_serial">
-<msg time="2026-06-10T13:18:05.376370" level="INFO">DIO external HIGH read = 1</msg>
-<msg time="2026-06-10T13:18:05.376420" level="INFO">DIO external LOW read = 0</msg>
+<msg time="2026-06-10T13:41:28.149092" level="INFO">DIO external HIGH read = 1</msg>
+<msg time="2026-06-10T13:41:28.149116" level="INFO">DIO external LOW read = 0</msg>
 <arg>${response}</arg>
-<status status="PASS" start="2026-06-10T13:18:05.376076" elapsed="0.000385"/>
+<status status="PASS" start="2026-06-10T13:41:28.148851" elapsed="0.000296"/>
 </kw>
-<status status="PASS" start="2026-06-10T13:18:03.164614" elapsed="2.212009"/>
+<status status="PASS" start="2026-06-10T13:41:25.929633" elapsed="2.219604"/>
 </test>
 <test id="s1-s5-t3" name="DIO External Write High And Read Test" line="16">
 <kw name="Send Shell Command" owner="testbench_serial">
-<msg time="2026-06-10T13:18:07.587077" level="INFO">${write_response} = tb_dio_write 1
+<msg time="2026-06-10T13:41:30.367949" level="INFO">${write_response} = tb_dio_write 1
 DIO_WRITE OK VALUE 1
-[1;32muart:~$ [m</msg>
+[1;32mblackpill:~$ [m</msg>
 <var>${write_response}</var>
 <arg>tb_dio_write 1</arg>
-<status status="PASS" start="2026-06-10T13:18:05.377174" elapsed="2.209936"/>
+<status status="PASS" start="2026-06-10T13:41:28.149578" elapsed="2.218404"/>
 </kw>
 <kw name="Response Should Contain" owner="testbench_serial">
 <arg>${write_response}</arg>
 <arg>DIO_WRITE OK VALUE 1</arg>
-<status status="PASS" start="2026-06-10T13:18:07.587257" elapsed="0.000232"/>
+<status status="PASS" start="2026-06-10T13:41:30.368244" elapsed="0.000226"/>
 </kw>
 <kw name="Send Shell Command" owner="testbench_serial">
-<msg time="2026-06-10T13:18:09.797388" level="INFO">${read_response} = tb_dio_read
+<msg time="2026-06-10T13:41:32.585972" level="INFO">${read_response} = tb_dio_read
 DIO_READ VALUE 1
-[1;32muart:~$ [m</msg>
+[1;32mblackpill:~$ [m</msg>
 <var>${read_response}</var>
 <arg>tb_dio_read</arg>
-<status status="PASS" start="2026-06-10T13:18:07.587782" elapsed="2.209640"/>
+<status status="PASS" start="2026-06-10T13:41:30.368748" elapsed="2.217256"/>
 </kw>
 <kw name="Response Should Contain" owner="testbench_serial">
 <arg>${read_response}</arg>
 <arg>DIO_READ VALUE 1</arg>
-<status status="PASS" start="2026-06-10T13:18:09.797631" elapsed="0.000180"/>
+<status status="PASS" start="2026-06-10T13:41:32.586191" elapsed="0.000126"/>
 </kw>
-<status status="PASS" start="2026-06-10T13:18:05.376918" elapsed="4.421048"/>
+<status status="PASS" start="2026-06-10T13:41:28.149373" elapsed="4.437089"/>
 </test>
 <test id="s1-s5-t4" name="DIO External Write Low And Read Test" line="22">
 <kw name="Send Shell Command" owner="testbench_serial">
-<msg time="2026-06-10T13:18:12.009094" level="INFO">${write_response} = tb_dio_write 0
+<msg time="2026-06-10T13:41:34.804426" level="INFO">${write_response} = tb_dio_write 0
 DIO_WRITE OK VALUE 0
-[1;32muart:~$ [m</msg>
+[1;32mblackpill:~$ [m</msg>
 <var>${write_response}</var>
 <arg>tb_dio_write 0</arg>
-<status status="PASS" start="2026-06-10T13:18:09.798538" elapsed="2.210590"/>
+<status status="PASS" start="2026-06-10T13:41:32.587041" elapsed="2.217419"/>
 </kw>
 <kw name="Response Should Contain" owner="testbench_serial">
 <arg>${write_response}</arg>
 <arg>DIO_WRITE OK VALUE 0</arg>
-<status status="PASS" start="2026-06-10T13:18:12.009257" elapsed="0.000120"/>
+<status status="PASS" start="2026-06-10T13:41:34.804674" elapsed="0.000143"/>
 </kw>
 <kw name="Send Shell Command" owner="testbench_serial">
-<msg time="2026-06-10T13:18:14.220290" level="INFO">${read_response} = tb_dio_read
+<msg time="2026-06-10T13:41:37.020033" level="INFO">${read_response} = tb_dio_read
 DIO_READ VALUE 0
-[1;32muart:~$ [m</msg>
+[1;32mblackpill:~$ [m</msg>
 <var>${read_response}</var>
 <arg>tb_dio_read</arg>
-<status status="PASS" start="2026-06-10T13:18:12.009474" elapsed="2.210851"/>
+<status status="PASS" start="2026-06-10T13:41:34.804966" elapsed="2.215101"/>
 </kw>
 <kw name="Response Should Contain" owner="testbench_serial">
 <arg>${read_response}</arg>
 <arg>DIO_READ VALUE 0</arg>
-<status status="PASS" start="2026-06-10T13:18:14.220461" elapsed="0.000120"/>
+<status status="PASS" start="2026-06-10T13:41:37.020252" elapsed="0.000123"/>
 </kw>
-<status status="PASS" start="2026-06-10T13:18:09.798226" elapsed="4.422513"/>
+<status status="PASS" start="2026-06-10T13:41:32.586754" elapsed="4.433764"/>
 </test>
 <kw name="Close Connection" owner="testbench_serial" type="TEARDOWN">
-<status status="PASS" start="2026-06-10T13:18:14.221090" elapsed="0.102467"/>
+<status status="PASS" start="2026-06-10T13:41:37.020957" elapsed="0.102831"/>
 </kw>
-<status status="PASS" start="2026-06-10T13:17:59.947970" elapsed="14.375636"/>
+<status status="PASS" start="2026-06-10T13:41:22.707833" elapsed="14.416001"/>
 </suite>
-<status status="FAIL" start="2026-06-10T13:17:20.103784" elapsed="54.220299"/>
+<status status="FAIL" start="2026-06-10T13:40:42.756209" elapsed="54.368115"/>
 </suite>
 <statistics>
 <total>
