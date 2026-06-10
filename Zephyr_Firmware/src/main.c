@@ -5,6 +5,7 @@
 #include "testbench_dio.h"              /* Include DIO module interface */
 #include "testbench_adc.h"              /* Include ADC module interface */
 #include "testbench_spi.h"              /* Include SPI module interface */
+#include "testbench_uart.h"             /* Include UART module interface */
 
 
 /**
@@ -42,6 +43,9 @@ SHELL_CMD_REGISTER(tb_ping, NULL, "Test Bench ping command", cmd_tb_ping);
  */
 int main(void)
 {
+
+    testBench_uart_Init();
+
     int ret = testBench_dio_Init();     /* Initialize DIO module */
 
     if (ret < 0) {                      /* Check if DIO initialization failed */

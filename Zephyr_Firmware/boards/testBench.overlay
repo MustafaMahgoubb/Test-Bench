@@ -45,3 +45,128 @@ status = "okay";
 pinctrl-0 = <&spi1_sck_pa5 &spi1_miso_pa6 &spi1_mosi_pa7>;
 pinctrl-names = "default";
 };
+/*
+ * This is the Overlay file used in Test Bench Project
+ *
+ * Authors:   Mustafa Mahgoub (mustafamahgoub.2025@gmail.com)
+ *            Ayman Ali
+*/
+
+/*
+ * ==========================================
+ * HARDWARE CONFIGURATION
+ * ==========================================
+ */
+
+/*
+ * ==========================================
+ * PWM Configuration
+ * ==========================================
+ */
+
+/*
+ * For PWM Out, the Test Bench supports PA0 (Channel 1) and PA1 (Channel 2).
+ * Both of these pins are driven by Hardware Timer 2.
+ */
+
+&timers2 {
+	status = "okay";
+
+	pwm2: pwm {
+		status = "okay";
+		pinctrl-0 = <&tim2_ch1_pa0 &tim2_ch2_pa1>;
+		pinctrl-names = "default";
+	};
+};
+
+
+/*
+ * For PWM In, the Test Bench supports PB4 (Channel 1) and PB5 (Channel 2).
+ * Both of these pins are driven by Hardware Timer 3.
+ */
+
+
+&timers3 {
+	status = "okay";
+	st,prescaler = <83>; // (Divides 84MHz by 84 = 1MHz clock)
+
+	pwm3: pwm {
+		status = "okay";
+		pinctrl-0 = <&tim3_ch1_pb4 &tim3_ch2_pb5>;
+		pinctrl-names = "default";
+	};
+};
+
+
+/*
+ * ==========================================
+ * UART Configuration
+ * ==========================================
+ */
+
+
+/*
+ * For UART, The Test Bench provides Uart Features features on
+ * 2 UART Channels -> UART_CH1 (UART2 PA2(Tx) PA3(Rx)) and (UART_CH2 UART6 PA11(Tx) PA12(Rx))
+ */
+&usart2 {
+	pinctrl-0 = <&usart2_tx_pa2 &usart2_rx_pa3>;
+	pinctrl-names = "default";
+	status = "okay";
+	current-speed = <115200>;
+};
+&usart6 {
+	pinctrl-0 = <&usart6_tx_pa11 &usart6_rx_pa12>;
+	pinctrl-names = "default";
+	status = "okay";
+	current-speed = <115200>;
+};
+
+
+/*
+ * ==========================================
+ * SOFTWARE BINDINGS
+ * ==========================================
+ */
+
+/ {
+	/*
+	 * Define custom nodes for the Test Bench.
+	 * This links the physical hardware (pwm2) to a logical test channel.
+	 */
+	test_bench_pwms {
+		compatible = "pwm-leds";
+
+		pwm_out_1: pwm_out_1 {
+			/* <&hardware_node   channel   default_period   flags> */
+			pwms = <&pwm2 1 0 PWM_POLARITY_NORMAL>;
+		};
+
+		pwm_out_2: pwm_out_2 {
+			pwms = <&pwm2 2 0 PWM_POLARITY_NORMAL>;
+		};
+
+		pwm_in_1: pwm_in_1 {
+            /* Use pwm3, Channel 1 */
+            pwms = <&pwm3 1 0 PWM_POLARITY_NORMAL>;
+        };
+
+		pwm_in_2: pwm_in_2 {
+            /* Use pwm3, Channel 1 */
+            pwms = <&pwm3 2 0 PWM_POLARITY_NORMAL>;
+        };
+	};
+
+	/*
+	 * Create aliases so the C code can easily find these nodes
+	 * using DT_ALIAS(pwmout1)
+	 */
+	aliases {
+		pwmout1 = &pwm_out_1;
+		pwmout2 = &pwm_out_2;
+		pwmin1 = &pwm_in_1;
+		pwmin2 = &pwm_in_2;
+		uart-ch1 = &usart2;
+		uart-ch2 = &usart6;
+	};
+};

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.2 (Python 3.10.12 on linux)" generated="2026-06-09T02:53:33.502597" rpa="false" schemaversion="5">
+<suite id="s1" name="pwmOUT Test" source="/home/mustafa/Embedded_ITI_9M/projects/Test-Bench/Robot_Framework/pwmOUT_Test.robot">
+<test id="s1-t1" name="Verify LED Recieves 50 PWM DutyCycle" line="8">
+<kw name="Set Pwm Duty Cycle" owner="TestBenchLibrary">
+<arg>1</arg>
+<arg>50</arg>
+<doc>This Python function becomes a Robot Keyword!</doc>
+<status status="PASS" start="2026-06-09T02:53:34.636881" elapsed="1.102811"/>
+</kw>
+<doc>Simulate a 50% PWM Signal and Check if the the External Hardwar Reacts</doc>
+<status status="PASS" start="2026-06-09T02:53:34.633762" elapsed="1.106705"/>
+</test>
+<test id="s1-t2" name="Give Wrong Dutycycle" line="14">
+<kw name="Run Keyword And Expect Error" owner="BuiltIn">
+<kw name="Set Pwm Duty Cycle" owner="TestBenchLibrary">
+<msg time="2026-06-09T02:53:36.955024" level="FAIL">Test Bench rejected command! Response: pwm_out set 1 200
+Invalid Duty Cycle
+ available DutyCycle 0~100
+[1;32mblackpill:~$ [m</msg>
+<arg>1</arg>
+<arg>200</arg>
+<doc>This Python function becomes a Robot Keyword!</doc>
+<status status="FAIL" start="2026-06-09T02:53:35.851549" elapsed="1.104315">Test Bench rejected command! Response: pwm_out set 1 200
+Invalid Duty Cycle
+ available DutyCycle 0~100
+[1;32mblackpill:~$ [m</status>
+</kw>
+<arg>*Invalid Duty Cycle*</arg>
+<arg>Set Pwm Duty Cycle</arg>
+<arg>1</arg>
+<arg>200</arg>
+<doc>Runs the keyword and checks that the expected error occurred.</doc>
+<status status="PASS" start="2026-06-09T02:53:35.849913" elapsed="1.107007"/>
+</kw>
+<doc>Simulate a 200% DutyCycle and check if it throws an error.</doc>
+<status status="PASS" start="2026-06-09T02:53:35.848336" elapsed="1.109215"/>
+</test>
+<test id="s1-t3" name="Give Wrong Channel" line="23">
+<kw name="Run Keyword And Expect Error" owner="BuiltIn">
+<kw name="Set Pwm Duty Cycle" owner="TestBenchLibrary">
+<msg time="2026-06-09T02:53:38.064426" level="FAIL">Test Bench rejected command! Response: pwm_out set 5 50
+Invalid PWM Channel
+ Available Channels are 1 and 2
+[1;32mblackpill:~$ [m</msg>
+<arg>5</arg>
+<arg>50</arg>
+<doc>This Python function becomes a Robot Keyword!</doc>
+<status status="FAIL" start="2026-06-09T02:53:36.960991" elapsed="1.103959">Test Bench rejected command! Response: pwm_out set 5 50
+Invalid PWM Channel
+ Available Channels are 1 and 2
+[1;32mblackpill:~$ [m</status>
+</kw>
+<arg>*Invalid PWM Channel*</arg>
+<arg>Set Pwm Duty Cycle</arg>
+<arg>5</arg>
+<arg>50</arg>
+<doc>Runs the keyword and checks that the expected error occurred.</doc>
+<status status="PASS" start="2026-06-09T02:53:36.959591" elapsed="1.106400"/>
+</kw>
+<doc>give invalid pwm channel</doc>
+<status status="PASS" start="2026-06-09T02:53:36.958315" elapsed="1.108307"/>
+</test>
+<test id="s1-t4" name="Stop PWM Signal Safely" line="27">
+<kw name="Set Pwm Duty Cycle" owner="TestBenchLibrary">
+<arg>1</arg>
+<arg>0</arg>
+<doc>This Python function becomes a Robot Keyword!</doc>
+<status status="PASS" start="2026-06-09T02:53:38.068653" elapsed="1.102773"/>
+</kw>
+<doc>Ensure the PWM can be turned off.</doc>
+<status status="PASS" start="2026-06-09T02:53:38.067398" elapsed="1.104771"/>
+</test>
+<kw name="Close Connection" owner="TestBenchLibrary" type="TEARDOWN">
+<status status="PASS" start="2026-06-09T02:53:39.174167" elapsed="1.002178"/>
+</kw>
+<doc>Testing the PWM Output capabilities of the HIL Bench.</doc>
+<status status="PASS" start="2026-06-09T02:53:33.503281" elapsed="6.673266"/>
+</suite>
+<statistics>
+<total>
+<stat pass="4" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="pwmOUT Test" id="s1" pass="4" fail="0" skip="0">pwmOUT Test</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
