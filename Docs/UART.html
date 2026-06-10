@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UART Driver</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --text-color: #f8fafc;
+            --accent-color: #3b82f6;
+            --secondary-bg: #1e293b;
+            --border-color: #334155;
+            --success: #10b981;
+            --danger: #ef4444;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: transparent;
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0 auto;
+            padding: 2rem;
+            max-width: 1000px;
+        }
+
+        h1, h2, h3 { color: var(--accent-color); }
+        h1 { font-size: 2.5rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem; margin-top: 0; }
+
+        .card {
+            background-color: var(--secondary-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .hardware-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .hw-item {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid var(--accent-color);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .hw-item strong { display: block; font-size: 1.2rem; color: var(--accent-color); }
+
+        code {
+            font-family: 'Fira Code', 'Courier New', Courier, monospace;
+            background-color: #000;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: #e2e8f0;
+        }
+
+        pre {
+            background-color: #000;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+        }
+        
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--success);
+            background-color: rgba(16, 185, 129, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>UART Driver Documentation</h1>
+    <p>The Universal Asynchronous Receiver-Transmitter (UART) module provides fully interrupt-driven, bidirectional serial communication for the Test Bench. It ensures zero data loss during high-speed communication with Electronic Control Units (ECUs).</p>
+
+    <div class="card">
+        <h2>Hardware Configuration</h2>
+        <p>The STM32F401 Blackpill uses USART1 (PA9/PA10) for the Zephyr Shell by default. Therefore, the Test Bench leverages <strong>USART2</strong> and <strong>USART6</strong> for automated testing channels.</p>
+        <div class="hardware-grid">
+            <div class="hw-item">
+                <strong>Channel 1 (USART2)</strong>
+                TX: PA2 | RX: PA3
+            </div>
+            <div class="hw-item">
+                <strong>Channel 2 (USART6)</strong>
+                TX: PA11 | RX: PA12
+            </div>
+            <div class="hw-item">
+                <strong>Default Baudrate</strong>
+                115200 bps
+            </div>
+        </div>
+    </div>
+    
+    <div class="alert">
+        <strong>Architecture Note:</strong> This driver uses 256-byte Zephyr <code>ring_buf</code> software buffers and hardware Interrupt Service Routines (ISRs). When data arrives on the RX pin, the ISR instantly pushes it to the Ring Buffer without blocking the main CPU execution.
+    </div>
+
+    <div class="card">
+        <h2>Zephyr Shell API Commands</h2>
+
+        <h3>1. Send String</h3>
+        <p>Transmits a string of characters out the TX pin.</p>
+        <pre><code>blackpill:~$ uart send &lt;channel&gt; &lt;message&gt;</code></pre>
+        <strong>Example:</strong>
+        <pre><code>blackpill:~$ uart send 1 START_ENGINE</code></pre>
+
+        <h3>2. Read Buffer</h3>
+        <p>Drains the software ring buffer, printing all characters received since the last read. If no data has arrived, it returns silently.</p>
+        <pre><code>blackpill:~$ uart read &lt;channel&gt;</code></pre>
+        <strong>Example:</strong>
+        <pre><code>blackpill:~$ uart read 2
+ENGINE_RUNNING_OK</code></pre>
+
+        <h3>3. Clear Buffer</h3>
+        <p>Resets the RX ring buffer. This is highly recommended before starting a new automated Robot Framework test to ensure garbage data is flushed.</p>
+        <pre><code>blackpill:~$ uart clear &lt;channel&gt;</code></pre>
+
+        <h3>4. Dynamically Set Baudrate</h3>
+        <p>Reconfigures the hardware UART peripheral to a new speed on the fly, without needing to reboot the Test Bench.</p>
+        <pre><code>blackpill:~$ uart set_baud &lt;channel&gt; &lt;baudrate&gt;</code></pre>
+        <strong>Example:</strong>
+        <pre><code>blackpill:~$ uart set_baud 1 9600</code></pre>
+    </div>
+
+</body>
+</html>

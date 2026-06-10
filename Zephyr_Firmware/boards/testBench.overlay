@@ -50,6 +50,32 @@
 	};
 };
 
+
+/*
+ * ==========================================
+ * UART Configuration
+ * ==========================================
+ */
+
+
+/*  
+ * For UART, The Test Bench provides Uart Features features on 
+ * 2 UART Channels -> UART_CH1 (UART2 PA2(Tx) PA3(Rx)) and (UART_CH2 UART6 PA11(Tx) PA12(Rx))
+ */
+&usart2 {
+	pinctrl-0 = <&usart2_tx_pa2 &usart2_rx_pa3>;
+	pinctrl-names = "default";
+	status = "okay";
+	current-speed = <115200>;
+};
+&usart6 {
+	pinctrl-0 = <&usart6_tx_pa11 &usart6_rx_pa12>;
+	pinctrl-names = "default";
+	status = "okay";
+	current-speed = <115200>;
+};
+
+
 /*
  * ==========================================
  * SOFTWARE BINDINGS
@@ -93,5 +119,7 @@
 		pwmout2 = &pwm_out_2;
 		pwmin1 = &pwm_in_1;
 		pwmin2 = &pwm_in_2;
+		uart-ch1 = &usart2;
+		uart-ch2 = &usart6;
 	};
 };

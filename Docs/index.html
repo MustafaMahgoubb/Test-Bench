@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIL Test Bench Documentation</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --sidebar-bg: #1e293b;
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-color: #3b82f6;
+            --border-color: #334155;
+            --hover-bg: rgba(59, 130, 246, 0.1);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: 260px;
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .sidebar-header h2 {
+            margin: 0;
+            font-size: 1.25rem;
+            color: var(--accent-color);
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar-header p {
+            margin: 0.25rem 0 0 0;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 1rem 0;
+            margin: 0;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .nav-category {
+            padding: 0.5rem 1.5rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-top: 1rem;
+        }
+
+        .nav-item {
+            padding: 0 1rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            margin-bottom: 0.25rem;
+        }
+
+        .nav-link:hover {
+            background-color: var(--hover-bg);
+            color: var(--accent-color);
+        }
+
+        /* Content Area */
+        .content-area {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background-color: var(--bg-color);
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h2>Test Bench</h2>
+            <p>Hardware-in-the-Loop</p>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="home.html" target="content_frame" class="nav-link">🏠 Home / Overview</a>
+            </li>
+
+            <div class="nav-category">Implemented Drivers</div>
+            
+            <li class="nav-item">
+                <a href="PWM_OUT.html" target="content_frame" class="nav-link">⚡ PWM OUT Driver</a>
+            </li>
+            <li class="nav-item">
+                <a href="PWM_IN.html" target="content_frame" class="nav-link">📊 PWM IN Driver</a>
+            </li>
+            <li class="nav-item">
+                <a href="UART.html" target="content_frame" class="nav-link">🔌 UART Driver</a>
+            </li>
+
+            <div class="nav-category">Upcoming Drivers</div>
+
+            <li class="nav-item">
+                <a href="DIO.html" target="content_frame" class="nav-link">🔘 DIO Driver</a>
+            </li>
+            <li class="nav-item">
+                <a href="ADC.html" target="content_frame" class="nav-link">📈 ADC Driver</a>
+            </li>
+            <li class="nav-item">
+                <a href="SPI.html" target="content_frame" class="nav-link">🔗 SPI Driver</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Iframe -->
+    <main class="content-area">
+        <iframe src="home.html" name="content_frame" title="Documentation Content"></iframe>
+    </main>
+
+</body>
+</html>
