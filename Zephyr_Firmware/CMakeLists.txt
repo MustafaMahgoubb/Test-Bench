@@ -1,11 +1,13 @@
-cmake_minimum_required(VERSION 3.20.0)       # Set the minimum required CMake version
+cmake_minimum_required(VERSION 3.20.0)
 
-find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE}) # Find and load the Zephyr build system
+find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
 
-project(test_bench)                          # Define the project name
+project(TestBench)
 
-target_sources(app PRIVATE                   # Add source files to the Zephyr application target
-    src/main.c                               # Add the main application source file
-    src/modules/dio/dio_service.c            # Add the DIO service source file
-    src/modules/adc/adc_service.c            # Add the ADC service source file
+target_include_directories(app PRIVATE include)
+
+target_sources(app PRIVATE
+    src/main.c
+    src/testbench_dio.c
+    src/testbench_adc.c
 )

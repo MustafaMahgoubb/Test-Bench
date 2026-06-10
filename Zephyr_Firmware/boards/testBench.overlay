@@ -1,0 +1,32 @@
+#include <zephyr/dt-bindings/gpio/gpio.h>
+
+/ {
+    aliases {
+        dio-out = &dio_out_pin;
+        dio-in = &dio_in_pin;
+    };
+
+    dio_outputs {
+        compatible = "gpio-leds";
+
+        dio_out_pin: dio_out_pin {
+            gpios = <&gpiob 8 GPIO_ACTIVE_HIGH>;
+            label = "DIO_OUT_PB8";
+        };
+    };
+
+    dio_inputs {
+        compatible = "gpio-keys";
+
+        dio_in_pin: dio_in_pin {
+            gpios = <&gpiob 9 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
+            label = "DIO_IN_PB9";
+        };
+    };
+};
+
+&adc1 {
+    status = "okay";
+    pinctrl-0 = <&adc1_in8_pb0>;
+    pinctrl-names = "default";
+};
