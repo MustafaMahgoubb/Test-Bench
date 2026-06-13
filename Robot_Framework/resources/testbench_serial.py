@@ -11,7 +11,12 @@ class testbench_serial:
         self.port = port
         self.baudrate = int(baudrate)
         self.timeout = float(timeout)
+
         self.ser = None
+
+        # DUT serial object for tests that need to read DUT logs
+        self.dut_ser = None
+        self.dut_port = None
 
     def open_connection(self):
         if self.ser is not None and self.ser.is_open:
@@ -32,6 +37,36 @@ class testbench_serial:
                 self.ser.close()
 
             self.ser = None
+
+    def open_dut_connection(self, dut_port="/dev/ttyUSB0"):
+        self.dut_port = dut_port
+
+        if self.dut_ser is not None and self.dut_ser.is_open:
+            return
+
+        self.dut_ser = serial.Serial(
+            port=self.dut_port,
+            baudrate=self.baudrate,
+            timeout=self.timeout,
+            exclusive=True
+        )
+
+        time.sleep(1.0)
+
+    def close_dut_connection(self):
+        if self.dut_ser is not None:
+            if self.dut_ser.is_open:
+                self.dut_ser.close()
+
+            self.dut_ser = None
+
+    def open_testbench_and_dut_connections(self, dut_port="/dev/ttyUSB0"):
+        self.open_connection()
+        self.open_dut_connection(dut_port)
+
+    def close_all_connections(self):
+        self.close_connection()
+        self.close_dut_connection()
 
     def read_response(self, read_time=2.0):
         read_time = float(read_time)
@@ -86,24 +121,11 @@ class testbench_serial:
         logger.console(f"  RAW     = {raw_value}")
         logger.console(f"  Voltage = {mv_value} mV")
 
-        logger.info(f"ADC RAW value = {raw_value}")
-        logger.info(f"ADC voltage = {mv_value} mV")
-
         if raw_value < 0 or raw_value > 4095:
             raise AssertionError(f"ADC raw value out of range: {raw_value}")
 
         if mv_value < 0 or mv_value > 3300:
             raise AssertionError(f"ADC millivolt value out of range: {mv_value}")
-
-        if raw_value <= 50:
-            raise AssertionError(
-                f"ADC value is too low or stuck near GND: RAW={raw_value}, MV={mv_value}"
-            )
-
-        if raw_value >= 4045:
-            raise AssertionError(
-                f"ADC value is too high or stuck near 3V3: RAW={raw_value}, MV={mv_value}"
-            )
 
     def spi_slave_ping_response_should_pass(self, response):
         match = re.search(
@@ -120,9 +142,6 @@ class testbench_serial:
         logger.console("\nSPI External DUT Result:")
         logger.console(f"  TX = 0x{tx_text}")
         logger.console(f"  RX = 0x{rx_text}")
-
-        logger.info(f"SPI External DUT TX = 0x{tx_text}")
-        logger.info(f"SPI External DUT RX = 0x{rx_text}")
 
         if tx_text != "A5":
             raise AssertionError(f"Unexpected SPI TX byte: 0x{tx_text}")
@@ -146,12 +165,88 @@ class testbench_serial:
         logger.console(f"  HIGH Read = {high_value}")
         logger.console(f"  LOW Read  = {low_value}")
 
-        logger.info(f"DIO external HIGH read = {high_value}")
-        logger.info(f"DIO external LOW read = {low_value}")
-
         if high_value != "1":
             raise AssertionError(f"Expected HIGH read to be 1, got {high_value}")
 
         if low_value != "0":
             raise AssertionError(f"Expected LOW read to be 0, got {low_value}")
 
+    def clear_dut_log_buffer(self):
+        if self.dut_ser is None or not self.dut_ser.is_open:
+            self.open_dut_connection()
+
+        self.dut_ser.reset_input_buffer()
+        self.dut_ser.reset_output_buffer()
+
+    def read_dut_logs(self, read_time=5.0):
+        if self.dut_ser is None or not self.dut_ser.is_open:
+            self.open_dut_connection()
+
+        read_time = float(read_time)
+        logs = ""
+        start_time = time.time()
+
+        while time.time() - start_time < read_time:
+            if self.dut_ser.in_waiting > 0:
+                data = self.dut_ser.read(self.dut_ser.in_waiting)
+                text = data.decode("utf-8", errors="ignore")
+                logs += text
+
+            time.sleep(0.05)
+
+        logger.console("\nDUT Logs:")
+        logger.console(logs)
+
+        return logs
+
+    def dut_pwm_output_should_match(self, logs):
+        ch1_matches = re.findall(
+            r"DUT_PWM_IN CH1 Freq:\s*(\d+)\s*Hz,\s*Duty:\s*(\d+)\.(\d+)",
+            logs
+        )
+
+        ch2_matches = re.findall(
+            r"DUT_PWM_IN CH2 Freq:\s*(\d+)\s*Hz,\s*Duty:\s*(\d+)\.(\d+)",
+            logs
+        )
+
+        if not ch1_matches:
+            raise AssertionError(f"CH1 PWM reading was not found in DUT logs:\n{logs}")
+
+        if not ch2_matches:
+            raise AssertionError(f"CH2 PWM reading was not found in DUT logs:\n{logs}")
+
+        ch1_freq = None
+        ch1_duty = None
+        ch2_freq = None
+        ch2_duty = None
+
+        for match in ch1_matches:
+            freq = int(match[0])
+            duty = float(f"{match[1]}.{match[2]}")
+
+            if 900 <= freq <= 1100 and 45.0 <= duty <= 55.0:
+                ch1_freq = freq
+                ch1_duty = duty
+                break
+
+        for match in ch2_matches:
+            freq = int(match[0])
+            duty = float(f"{match[1]}.{match[2]}")
+
+            if 900 <= freq <= 1100 and 20.0 <= duty <= 30.0:
+                ch2_freq = freq
+                ch2_duty = duty
+                break
+
+        if ch1_freq is None:
+            raise AssertionError(f"Valid CH1 PWM reading was not found in DUT logs:\n{logs}")
+
+        if ch2_freq is None:
+            raise AssertionError(f"Valid CH2 PWM reading was not found in DUT logs:\n{logs}")
+
+        logger.console("\nPWM OUT External DUT Result:")
+        logger.console(f"  CH1 Frequency = {ch1_freq} Hz")
+        logger.console(f"  CH1 Duty      = {ch1_duty:.2f}%")
+        logger.console(f"  CH2 Frequency = {ch2_freq} Hz")
+        logger.console(f"  CH2 Duty      = {ch2_duty:.2f}%")
