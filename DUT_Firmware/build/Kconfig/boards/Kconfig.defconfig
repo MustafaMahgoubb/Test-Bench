@@ -1,2 +1,0 @@
-# Load Zephyr board defconfig descriptions.
-osource "/home/ayman/zephyrproject/zephyr/boards/weact/blackpill_f401cc/Kconfig.defconfig"

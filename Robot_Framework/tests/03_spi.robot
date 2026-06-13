@@ -1,5 +1,5 @@
 *** Settings ***
-Library    ../resources/testbench_serial.py    /dev/ttyUSB0    115200
+Library    ../resources/testbench_serial.py    /dev/ttyUSB1    115200
 Suite Setup    Open Connection
 Suite Teardown    Close Connection
 

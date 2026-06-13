@@ -10,4 +10,5 @@ target_sources(app PRIVATE
     src/main.c
     src/dut_dio.c
     src/dut_spi.c
+    src/dut_uart.c
 )

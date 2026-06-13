@@ -4,6 +4,8 @@
     aliases {
         dut-dio-in = &dut_dio_in_pin;
         dut-dio-out = &dut_dio_out_pin;
+        uart-test = &usart2;
+        uart-test = &usart6;
     };
 
     dut_dio_inputs {
@@ -31,3 +33,9 @@
     pinctrl-names = "default";
 };
 
+&usart6 {
+    status = "okay";
+    current-speed = <115200>;
+    pinctrl-0 = <&usart6_tx_pa11 &usart6_rx_pa12>;
+    pinctrl-names = "default";
+};

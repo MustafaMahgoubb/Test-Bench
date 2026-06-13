@@ -18,5 +18,28 @@ CMakeUserPresets.json
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #cmake-build-*
 Zephyr_Firmware/build/
+DUT_Firmware/build/
 
 build
+
+# Zephyr build outputs
+Zephyr_Firmware/build/
+DUT_Firmware/build/
+build/
+
+# Python cache
+__pycache__/
+**/__pycache__/
+*.pyc
+
+# Robot Framework generated reports
+output.xml
+log.html
+report.html
+Robot_Framework/output.xml
+Robot_Framework/log.html
+Robot_Framework/report.html
+Robot_Framework/tests/output.xml
+Robot_Framework/tests/log.html
+Robot_Framework/tests/report.html
+
