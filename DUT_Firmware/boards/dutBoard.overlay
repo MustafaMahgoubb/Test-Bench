@@ -6,6 +6,8 @@
         dut-dio-out = &dut_dio_out_pin;
         uart-test = &usart2;
         uart-test = &usart6;
+        dut-pwmout1 = &dut_pwm_out_1;
+        dut-pwmout2 = &dut_pwm_out_2;
     };
 
     dut_dio_inputs {
@@ -25,6 +27,20 @@
             label = "DUT_DIO_OUT_PB9";
         };
     };
+
+    dut_pwm_outputs {
+        compatible = "pwm-leds";
+
+        dut_pwm_out_1: dut_pwm_out_1 {
+            pwms = <&pwm2 1 0 PWM_POLARITY_NORMAL>;
+            label = "DUT_PWM_OUT_PA0";
+        };
+
+        dut_pwm_out_2: dut_pwm_out_2 {
+            pwms = <&pwm2 2 0 PWM_POLARITY_NORMAL>;
+            label = "DUT_PWM_OUT_PA1";
+        };
+    };
 };
 
 &spi1 {
@@ -39,3 +55,16 @@
     pinctrl-0 = <&usart6_tx_pa11 &usart6_rx_pa12>;
     pinctrl-names = "default";
 };
+
+
+&timers2 {
+    status = "okay";
+
+    pwm2: pwm {
+        status = "okay";
+        pinctrl-0 = <&tim2_ch1_pa0 &tim2_ch2_pa1>;
+        pinctrl-names = "default";
+    };
+};
+
+
