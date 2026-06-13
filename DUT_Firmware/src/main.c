@@ -5,6 +5,7 @@
 #include "dut_spi.h"                    /* Include DUT SPI module interface */
 #include "dut_uart.h"                   /* Include DUT UART module interface */
 #include "dut_pwm_out.h"                /* Include DUT PWM output interface */
+#include "dut_pwm_in.h"                 /* Include DUT PWM input interface */
 
 
 /**
@@ -60,6 +61,15 @@ int main(void)
     }
 
     printk("DUT PWM OUT initialized\n");
+
+    ret = dut_pwm_in_Init();
+
+    if (ret < 0) {
+        printk("DUT PWM IN initialization failed: %d\n", ret);
+        return ret;
+    }
+
+    printk("DUT PWM IN initialized\n");
 
     while (1) {                                          /* Run forever */
         dut_dio_Process();                               /* Mirror DIO input to output */

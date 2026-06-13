@@ -1,4 +1,5 @@
 #include <zephyr/dt-bindings/gpio/gpio.h>
+#include <zephyr/dt-bindings/pwm/pwm.h>
 
 / {
     aliases {
@@ -8,6 +9,8 @@
         uart-test = &usart6;
         dut-pwmout1 = &dut_pwm_out_1;
         dut-pwmout2 = &dut_pwm_out_2;
+        dut-pwmin1 = &dut_pwm_in_1;
+        dut-pwmin2 = &dut_pwm_in_2;
     };
 
     dut_dio_inputs {
@@ -41,6 +44,20 @@
             label = "DUT_PWM_OUT_PA1";
         };
     };
+
+    dut_pwm_inputs {
+        compatible = "pwm-leds";
+
+        dut_pwm_in_1: dut_pwm_in_1 {
+            pwms = <&pwm3 1 0 PWM_POLARITY_NORMAL>;
+            label = "DUT_PWM_IN_PB4";
+        };
+
+        dut_pwm_in_2: dut_pwm_in_2 {
+            pwms = <&pwm3 2 0 PWM_POLARITY_NORMAL>;
+            label = "DUT_PWM_IN_PB5";
+        };
+    };
 };
 
 &spi1 {
@@ -67,4 +84,14 @@
     };
 };
 
+&timers3 {
+    status = "okay";
+    st,prescaler = <83>; /* Divide 84MHz by 84 to get 1MHz timer clock */
+
+    pwm3: pwm {
+        status = "okay";
+        pinctrl-0 = <&tim3_ch1_pb4 &tim3_ch2_pb5>;
+        pinctrl-names = "default";
+    };
+};
 

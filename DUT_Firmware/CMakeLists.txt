@@ -12,5 +12,6 @@ target_sources(app PRIVATE
     src/dut_spi.c
     src/dut_uart.c
     src/dut_pwm_out.c
+    src/dut_pwm_in.c
 )
 
